@@ -63,7 +63,7 @@ const TableData = () => {
             <thead className="bg-gray-50 border-b-2 border-gray-200 ">
               <tr>
                 {Heading.map((e, i) => (
-                  <th key={i} className="p-3 tracking-wide text-left">
+                  <th key={i} className="p-3 tracking-wide text-left ">
                     {e}
                   </th>
                 ))}
