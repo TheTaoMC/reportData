@@ -4,14 +4,15 @@ import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { jsPDF } from "jspdf";
 import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 import "primeicons/primeicons.css";
 
 const TableData2 = () => {
   const [weightDatas, setWeightDatas] = useState([]);
   const [selectedlist, setSelectedlist] = useState(null);
   const dt = useRef(null);
-  console.log(weightDatas);
-  console.log(selectedlist);
+  //console.log(weightDatas);
+  //console.log(selectedlist);
 
   const columns1 = [
     "WeightTimeIn",
@@ -145,22 +146,40 @@ const TableData2 = () => {
     dataKey: col.field,
   }));
   const header = (
-    <div className="flex align-items-center justify-content-end gap-2">
-      <Button
-        type="button"
-        icon="pi pi-file-pdf"
-        severity="warning"
-        rounded
-        onClick={exportPdf}
-        data-pr-tooltip="PDF"
-      />
-      <Button
-        type="button"
-        icon="pi pi-file"
-        rounded
-        onClick={() => exportCSV(false)}
-        data-pr-tooltip="CSV"
-      />
+    <div className="flex sm:flex-row flex-col  sm:align-items-center items-center justify-between gap-2">
+      <div className="flex sm:flex-row flex-col gap-2">
+        <Button
+          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 h-12"
+          label="Add"
+        />
+        <Button
+          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 h-12"
+          label="Edit"
+        />
+        <Button
+          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 h-12"
+          label="Delete"
+        />
+      </div>
+      <div className="flex sm:flex-row flex-col gap-2">
+        <Button
+          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 rounded-md "
+          type="button"
+          icon="pi pi-file-pdf"
+          severity="warning"
+          rounded
+          onClick={exportPdf}
+          data-pr-tooltip="PDF"
+        />
+        <Button
+          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 rounded-md"
+          type="button"
+          icon="pi pi-file"
+          rounded
+          onClick={() => exportCSV(false)}
+          data-pr-tooltip="CSV"
+        />
+      </div>
     </div>
   );
   return (
@@ -181,8 +200,8 @@ const TableData2 = () => {
             rows={5}
             rowsPerPageOptions={[5, 10, 25, 50]}
             removableSort
-            //scrollable
-            //scrollHeight="80%"
+            scrollable
+            scrollHeight={window.innerHeight - 200}
             tableStyle={{ minWidth: "200rem" }}
             //selection
             selectionMode="single"
