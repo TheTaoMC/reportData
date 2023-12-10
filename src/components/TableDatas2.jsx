@@ -2,37 +2,32 @@ import { useState, useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
+import { ConfirmDialog } from "primereact/confirmdialog";
+import { confirmDialog } from "primereact/confirmdialog";
+import { Toast } from "primereact/toast";
 import { jsPDF } from "jspdf";
-import "primereact/resources/themes/lara-light-cyan/theme.css";
-
+//import "primereact/resources/themes/lara-light-cyan/theme.css";
+//import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
 import "primeicons/primeicons.css";
+import AddData from "./AddData";
 
 const TableData2 = () => {
   const [weightDatas, setWeightDatas] = useState([]);
   const [selectedlist, setSelectedlist] = useState(null);
+  const [visible, setVisible] = useState(false);
   const dt = useRef(null);
-  //console.log(weightDatas);
-  //console.log(selectedlist);
+  console.log(visible);
 
-  const columns1 = [
-    "WeightTimeIn",
-    "WeightTimeOut",
-    "CarRegister",
-    "CustomerID",
-    "CustomerName",
-    "ProductID",
-    "ProductName",
-    "Remark1",
-    "Remark2",
-    "Remark3",
-    "Remark4",
-    "WeightIn",
-    "WeightOut",
-    "Weight",
-    "WeightNet",
-  ];
+  /*   if (selectedlist) {
+    console.log(selectedlist.DataID);
+  } */
 
+  //Columns
   const columns = [
+    {
+      field: "DataID",
+      header: "DataID",
+    },
     {
       field: "WeightTimeIn",
       header: "WeightTimeIn",
@@ -95,6 +90,7 @@ const TableData2 = () => {
     },
   ];
 
+  //fetchData
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -122,10 +118,112 @@ const TableData2 = () => {
     }
   };
 
+  //addData
+
+  //delData
+  const delData = async () => {
+    try {
+      // ตรวจสอบว่า selectedlist มีค่าหรือไม่
+      if (!selectedlist) {
+        console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ");
+        // คุณอาจต้องแสดงข้อความไปยังผู้ใช้ทาง UI ด้วย
+        return;
+      }
+
+      // ทำ HTTP POST request ไปยัง URL ที่กำหนด
+      const response = await fetch(
+        "https://theotesteng.000webhostapp.com/API/api/weight/delete.php",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            DataID: selectedlist.DataID,
+          }),
+        }
+      );
+
+      // ตรวจสอบว่าการเชื่อมต่อกับเซิร์ฟเวอร์เป็นไปตามปกติหรือไม่
+      if (!response.ok) {
+        // หากไม่ปกติ ให้ throw ข้อผิดพลาด
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      // สมมติว่าเซิร์ฟเวอร์ตอบกลับด้วยข้อมูลหลังจากการลบ
+      const data = await response.json();
+      await console.log(data);
+      await setSelectedlist(null);
+      await fetchData();
+      return data;
+
+      // ประมวลผลข้อมูลตามที่ต้องการ เช่น อัปเดต state หรือ UI
+      //await setWeightDatas(data);
+
+      // ล็อกข้อมูลที่ได้จากเซิร์ฟเวอร์
+      // console.log("ข้อมูลจากเซิร์ฟเวอร์:", data);
+    } catch (error) {
+      // ถ้ามีข้อผิดพลาดในขณะทำงาน ให้ล็อกไว้
+      console.error("เกิดข้อผิดพลาดในการลบข้อมูล:", error);
+    }
+  };
+  const toast = useRef(null);
+
+  const accept = () => {
+    delData().then((deletedData) => {
+      if (deletedData) {
+        toast.current.show({
+          severity: "info",
+          summary: "แจ้งเตือน",
+          detail: "ลบข้อมูลเรียบร้อย",
+          life: 3000,
+        });
+      } else {
+        toast.current.show({
+          severity: "warn",
+          summary: "แจ้งเตือน",
+          detail: "กรุณาเลือกข้อมูล",
+          life: 3000,
+        });
+      }
+    });
+  };
+
+  const reject = () => {
+    toast.current.show({
+      severity: "warn",
+      summary: "แจ้งเตือน",
+      detail: "ยกเลิก",
+      life: 3000,
+    });
+  };
+
+  const confirmdel = () => {
+    if (!selectedlist) {
+      console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ");
+      // คุณอาจต้องแสดงข้อความไปยังผู้ใช้ทาง UI ด้วย
+      toast.current.show({
+        severity: "warn",
+        summary: "แจ้งเตือน",
+        detail: "ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ",
+        life: 3000,
+      });
+      return;
+    }
+    confirmDialog({
+      message: "Do you want to delete this record?",
+      header: "Delete Confirmation",
+      icon: "pi pi-info-circle",
+      acceptClassName: "bg-red-700 hover:bg-red-800",
+      rejectClassName: "",
+      accept,
+      reject,
+    });
+  };
+
+  //load Data
   useEffect(() => {
     fetchData();
   }, []);
 
+  //Export CSV Pdf
   const exportCSV = (selectionOnly) => {
     dt.current.exportCSV({ selectionOnly });
   };
@@ -145,25 +243,41 @@ const TableData2 = () => {
     title: col.header,
     dataKey: col.field,
   }));
+
+  //visible Dialog
+  const handleClick = () => {
+    if (!visible) {
+      setVisible(true);
+    } else {
+      setVisible(false);
+    }
+  };
+
   const header = (
     <div className="flex sm:flex-row flex-col  sm:align-items-center items-center justify-between gap-2">
+      <Toast ref={toast} />
+      <ConfirmDialog className="text-6xl border border-gray-950" />
       <div className="flex sm:flex-row flex-col gap-2">
         <Button
-          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 h-12"
+          className="bg-cyan-700 hover:bg-cyan-800 p-2 w-24 h-12"
           label="Add"
+          onClick={handleClick}
         />
+        <AddData VisibleIn={visible} VisibleOut={handleClick} />
         <Button
-          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 h-12"
+          className="bg-cyan-700 hover:bg-cyan-800 p-2 w-24 h-12"
           label="Edit"
         />
         <Button
-          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 h-12"
+          className="bg-red-700 hover:bg-red-800 p-2 w-24 h-12"
           label="Delete"
+          icon="pi pi-times"
+          onClick={confirmdel}
         />
       </div>
       <div className="flex sm:flex-row flex-col gap-2">
         <Button
-          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 rounded-md "
+          className="bg-cyan-700 hover:bg-cyan-800 p-2 w-24 rounded-md "
           type="button"
           icon="pi pi-file-pdf"
           severity="warning"
@@ -172,7 +286,7 @@ const TableData2 = () => {
           data-pr-tooltip="PDF"
         />
         <Button
-          className="bg-cyan-300 hover:bg-cyan-400 p-2 w-24 rounded-md"
+          className="bg-cyan-700 hover:bg-cyan-800 p-2 w-24 rounded-md"
           type="button"
           icon="pi pi-file"
           rounded
