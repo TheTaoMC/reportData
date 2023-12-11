@@ -10,17 +10,23 @@ import AddData from "../AddData";
 import fetchData from "./FetchData";
 import delData from "./DelData";
 import header from "./HeaderBtn";
+import addData from "./AddData";
 
 function AppFetch({
   title = "title",
   columns = [],
   fetchDataURL = "",
   delDataURL = "",
+  addDataURL = "",
   fetchDataBody = {},
   delDataBody = {},
+  addDataBody = {},
   minWidth = "100rem",
   selectedlistOut,
+  child,
+  save,
 }) {
+  console.log("AppFetch: ", child);
   const [Datas, setDatas] = useState([]);
   const [selectedlist, setSelectedlist] = useState(null);
   const [visible, setVisible] = useState(false);
@@ -48,6 +54,10 @@ function AppFetch({
 
   const fetchdata = async () => {
     await fetchData(fetchDataURL, fetchDataBody, setDatas);
+  };
+
+  const Adddata = async (addData) => {
+    await addData(addDataURL, addDataBody, setDatas);
   };
 
   //load Data
@@ -266,6 +276,7 @@ function AppFetch({
 
   const funheader = () => {
     return header(
+      child,
       //toast,
       //handleClick,
       //visible,

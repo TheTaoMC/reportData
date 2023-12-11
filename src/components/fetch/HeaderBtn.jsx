@@ -8,6 +8,7 @@ import AddData from "../AddData";
 import delData from "./DelData";
 
 const header = (
+  child,
   //toast,
   //handleClick,
   //visible,
@@ -23,6 +24,7 @@ const header = (
   Datas,
   columns
 ) => {
+  console.log("header: ", child);
   const [visible, setVisible] = useState(false);
   //console.log(setSelectedlist);
 
@@ -119,7 +121,7 @@ const header = (
   }));
 
   //visible Dialog
-  const handleClick = () => {
+  const handleClickAdd = () => {
     if (!visible) {
       setVisible(true);
     } else {
@@ -134,9 +136,14 @@ const header = (
         <Button
           className="bg-cyan-700 hover:bg-cyan-800 p-2 w-24 h-12"
           label="Add"
-          onClick={handleClick}
+          onClick={handleClickAdd}
         />
-        <AddData VisibleIn={visible} VisibleOut={handleClick} />
+        <AddData
+          VisibleIn={visible}
+          VisibleOut={handleClickAdd}
+          child={child}
+          title={"เพิ่มข้อมูล"}
+        />
         <Button
           className="bg-cyan-700 hover:bg-cyan-800 p-2 w-24 h-12"
           label="Edit"
