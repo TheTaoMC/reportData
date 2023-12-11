@@ -4,13 +4,14 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { PrimeReactProvider } from "primereact/api";
 
-
 import TableData2 from "./components/TableDatas2";
+import AppNavber from "./components/navbar/AppNavber";
 
 function App() {
   return (
     <>
-      <TableData2 />
+      <AppNavber />
+      <div>APP Main</div>
     </>
   );
 }

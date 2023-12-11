@@ -5,11 +5,9 @@ import { Button } from "primereact/button";
 import { ConfirmDialog } from "primereact/confirmdialog";
 import { confirmDialog } from "primereact/confirmdialog";
 import { Toast } from "primereact/toast";
-import { jsPDF } from "jspdf";
-//import "primereact/resources/themes/lara-light-cyan/theme.css";
-//import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
 import "primeicons/primeicons.css";
 import AddData from "./AddData";
+import AppNavber from "./navbar/AppNavber";
 
 const TableData2 = () => {
   const [weightDatas, setWeightDatas] = useState([]);
@@ -164,6 +162,7 @@ const TableData2 = () => {
       console.error("เกิดข้อผิดพลาดในการลบข้อมูล:", error);
     }
   };
+  
   const toast = useRef(null);
 
   const accept = () => {
@@ -298,6 +297,7 @@ const TableData2 = () => {
   );
   return (
     <>
+      <AppNavber />
       <div className="max-w-[95%] mx-auto">
         <div className="text-3xl font-bold flex justify-center my-2">
           รายงาน
@@ -315,7 +315,7 @@ const TableData2 = () => {
             rowsPerPageOptions={[5, 10, 25, 50]}
             removableSort
             scrollable
-            scrollHeight={window.innerHeight - 200}
+            scrollHeight={window.innerHeight - 230}
             tableStyle={{ minWidth: "200rem" }}
             //selection
             selectionMode="single"
