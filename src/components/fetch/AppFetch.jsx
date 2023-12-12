@@ -1,16 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import { ConfirmDialog } from "primereact/confirmdialog";
-import { confirmDialog } from "primereact/confirmdialog";
-import { Toast } from "primereact/toast";
 import "primeicons/primeicons.css";
-import AddData from "../AddData";
 import fetchData from "./FetchData";
-import delData from "./DelData";
 import header from "./HeaderBtn";
-import addData from "./AddData";
 
 function AppFetch({
   title = "title",
@@ -18,18 +11,19 @@ function AppFetch({
   fetchDataURL = "",
   delDataURL = "",
   addDataURL = "",
+  singlefetchDataURL = "",
   fetchDataBody = {},
   delDataBody = {},
   addDataBody = {},
   minWidth = "100rem",
   selectedlistOut,
   child,
-  save,
+  resetform,
 }) {
-  console.log("AppFetch: ", child);
+  //console.log("pops AppFetch: ", addDataURL, addDataBody);
+  //console.log("AppFetch: ", child);
   const [Datas, setDatas] = useState([]);
   const [selectedlist, setSelectedlist] = useState(null);
-  const [visible, setVisible] = useState(false);
   const dt = useRef(null);
   //console.log(selectedlist);
   //console.log(delDataBody);
@@ -53,16 +47,18 @@ function AppFetch({
   }; */
 
   const fetchdata = async () => {
-    await fetchData(fetchDataURL, fetchDataBody, setDatas);
-  };
-
-  const Adddata = async (addData) => {
-    await addData(addDataURL, addDataBody, setDatas);
+    try {
+      await fetchData(fetchDataURL, fetchDataBody, setDatas);
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      throw error; // ให้เรียก throw error เพื่อให้ catch ใน caller จัดการ
+    }
   };
 
   //load Data
   useEffect(() => {
     fetchdata();
+    console.log("load Data");
   }, []);
 
   //delData
@@ -117,7 +113,7 @@ function AppFetch({
     }
   }; */
 
-  const toast = useRef(null);
+  //const toast = useRef(null);
 
   /*   const accept = () => {
     del().then((deletedData) => {
@@ -277,12 +273,6 @@ function AppFetch({
   const funheader = () => {
     return header(
       child,
-      //toast,
-      //handleClick,
-      //visible,
-      //confirmdel,
-      //exportPdf,
-      //exportCSV,
       selectedlist,
       delDataURL,
       delDataBody,
@@ -290,7 +280,11 @@ function AppFetch({
       fetchdata,
       dt,
       Datas,
-      columns
+      columns,
+      addDataURL,
+      addDataBody,
+      singlefetchDataURL,
+      resetform
     );
   };
 

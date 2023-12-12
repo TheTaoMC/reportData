@@ -1,5 +1,6 @@
-// ในไฟล์ fetchDataModule.js
+//เรียกข้อมูล
 const fetchData = async (fetchDataURL, fetchDataBody, setDatas) => {
+  //console.log("fetchData: ", fetchDataURL, fetchDataBody, setDatas);
   try {
     const response = await fetch(fetchDataURL, fetchDataBody);
     if (!response.ok) {

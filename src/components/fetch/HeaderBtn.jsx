@@ -6,15 +6,10 @@ import { Toast } from "primereact/toast";
 import "primeicons/primeicons.css";
 import AddData from "../AddData";
 import delData from "./DelData";
+import addData from "./AddData";
 
 const header = (
   child,
-  //toast,
-  //handleClick,
-  //visible,
-  //confirmdel,
-  //exportPdf,
-  //exportCSV,
   selectedlist,
   delDataURL,
   delDataBody,
@@ -22,12 +17,52 @@ const header = (
   fetchdata,
   dt,
   Datas,
-  columns
+  columns,
+  addDataURL,
+  addDataBody,
+  resetform
 ) => {
-  console.log("header: ", child);
+  //console.log("pops header: ", addDataURL, addDataBody);
+  //console.log("header: ", child);
   const [visible, setVisible] = useState(false);
   //console.log(setSelectedlist);
 
+  //บันทึกข้อมูล
+  const add = async () => {
+    try {
+      const data = await addData(addDataURL, addDataBody, fetchdata);
+      console.log("typeof fetchdata : ", typeof fetchdata);
+
+      console.log("? ", data);
+      if (data) {
+        await toast.current.show({
+          severity: "info",
+          summary: "แจ้งเตือน",
+          detail: "เพิ่มข้อมูลเรียบร้อย",
+          life: 3000,
+        });
+        resetform();
+      } else {
+        await toast.current.show({
+          severity: "warn",
+          summary: "แจ้งเตือน",
+          detail: "ข้อมูลไม่ถูกต้อง",
+          life: 3000,
+        });
+        //resetform();
+      }
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      throw error; // ให้เรียก throw error เพื่อให้ catch ใน caller จัดการ
+    }
+  };
+
+  //แก้ไข
+  const edit =async()=>{
+    
+  }
+
+  //ลบข้อมูล
   const del = async () => {
     try {
       return await delData(
@@ -42,6 +77,7 @@ const header = (
       throw error; // ให้เรียก throw error เพื่อให้ catch ใน caller จัดการ
     }
   };
+
   const toast = useRef(null);
   const accept = async () => {
     try {
@@ -128,6 +164,7 @@ const header = (
       setVisible(false);
     }
   };
+
   return (
     <div className="flex sm:flex-row flex-col  sm:align-items-center items-center justify-between gap-2">
       <Toast ref={toast} />
@@ -141,6 +178,7 @@ const header = (
         <AddData
           VisibleIn={visible}
           VisibleOut={handleClickAdd}
+          SaveOut={add}
           child={child}
           title={"เพิ่มข้อมูล"}
         />

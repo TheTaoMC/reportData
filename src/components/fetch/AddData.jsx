@@ -1,5 +1,6 @@
 //addData
-const addData = async (addDataURL, addDataBody) => {
+const addData = async (addDataURL, addDataBody, fetchdata) => {
+  //console.log("addData: ", addDataURL, addDataBody);
   try {
     //ตรวจสอบ
 
@@ -11,13 +12,13 @@ const addData = async (addDataURL, addDataBody) => {
       // หากไม่ปกติ ให้ throw ข้อผิดพลาด
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
-
+    //console.log(response.ok);
     // สมมติว่าเซิร์ฟเวอร์ตอบกลับด้วยข้อมูลหลังจากการลบ
     const data = await response.json();
-    await console.log(data);
-    await setSelectedlist(null);
+    console.log("addData", data);
+    //await setSelectedlist(null);
     await fetchdata();
-    return data;
+    return response.ok;
 
     // ประมวลผลข้อมูลตามที่ต้องการ เช่น อัปเดต state หรือ UI
     //await setWeightDatas(data);

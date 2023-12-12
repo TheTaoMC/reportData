@@ -6,6 +6,7 @@ const delData = async (
   fetchdata,
   selectedlist
 ) => {
+  //console.log(fetchdata);
   try {
     // ตรวจสอบว่า selectedlist มีค่าหรือไม่
     if (!selectedlist) {
@@ -29,12 +30,12 @@ const delData = async (
     await setSelectedlist(null);
     await fetchdata();
     return data;
-
     // ประมวลผลข้อมูลตามที่ต้องการ เช่น อัปเดต state หรือ UI
     //await setWeightDatas(data);
 
     // ล็อกข้อมูลที่ได้จากเซิร์ฟเวอร์
     // console.log("ข้อมูลจากเซิร์ฟเวอร์:", data);
+    
   } catch (error) {
     // ถ้ามีข้อผิดพลาดในขณะทำงาน ให้ล็อกไว้
     console.error("เกิดข้อผิดพลาดในการลบข้อมูล:", error);
