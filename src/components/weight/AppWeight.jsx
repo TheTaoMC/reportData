@@ -103,7 +103,7 @@ function AppWeight() {
         fetchDataBody={fetchDataBody}
         delDataBody={delDataBody}
         columns={columns}
-        minWidth={"50rem"}
+        minWidth={"100rem"}
         selectedlistOut={upDatedataID}
       />
     </div>

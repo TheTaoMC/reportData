@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
 import AppNavber from "../navbar/AppNavber"
 import AppFetch from "../fetch/AppFetch"
 
@@ -14,9 +15,9 @@ function AppProduct() {
   const [price, setPrice] = useState(0.0)
   const [flagCancel, setFlagCancel] = useState(false)
 
-  console.log("selectedlist:AppProduct:33 ", dataID)
+  //console.log("selectedlist:AppProduct:33 ", dataID)
 
-  console.log(productID)
+  //console.log(productID)
 
   const fetchDataBody = {
     method: "GET",
@@ -31,7 +32,7 @@ function AppProduct() {
   const addDataBody = {
     method: "POST",
     body: JSON.stringify({
-      DataID: productID,
+      DataID: uuidv4(),
       ProductID: productID,
       ProductName: productName,
       Price: price,
@@ -42,7 +43,7 @@ function AppProduct() {
   const editDataBody = {
     method: "POST",
     body: JSON.stringify({
-      DataID: productID,
+      DataID: dataID,
       ProductID: productID,
       ProductName: productName,
       Price: price,
@@ -74,6 +75,10 @@ function AppProduct() {
 
   const columns = [
     {
+      field: "DataID",
+      header: "DataID",
+    },
+    {
       field: "ProductID",
       header: "ProductID",
     },
@@ -85,6 +90,10 @@ function AppProduct() {
       field: "Price",
       header: "Price",
     },
+    {
+      field: "FlagCancel",
+      header: "FlagCancel",
+    },
   ]
 
   const addedit = (
@@ -92,10 +101,11 @@ function AppProduct() {
       <div>ProductID</div>
       <div>
         <InputText
+          autoFocus
           className="w-[100%]"
           value={productID}
           onChange={(e) => {
-            setDataID(e.target.value)
+            //setDataID(e.target.value)
             setProductID(e.target.value)
           }}
         />
@@ -114,7 +124,7 @@ function AppProduct() {
           <div className="flex gap-1 items-center">
             <InputNumber
               size={5}
-              className=""
+              inputClassName="text-right"
               inputId="minmaxfraction"
               value={price}
               onValueChange={(e) => setPrice(e.value)}
@@ -161,7 +171,7 @@ function AppProduct() {
         addDataBody={addDataBody}
         editDataBody={editDataBody}
         columns={columns}
-        minWidth={"100rem"}
+        minWidth={"10rem"}
         selectedlistOut={upDatedataID}
         child={addedit}
         resetState={resetState}

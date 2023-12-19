@@ -1,20 +1,21 @@
-import { useState, useEffect, useRef } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
-import { ConfirmDialog } from "primereact/confirmdialog";
-import { confirmDialog } from "primereact/confirmdialog";
-import { Toast } from "primereact/toast";
-import "primeicons/primeicons.css";
-import AddData from "./AddData";
-import AppNavber from "./navbar/AppNavber";
+import { useState, useEffect, useRef } from "react"
+import axios from "axios"
+import { DataTable } from "primereact/datatable"
+import { Column } from "primereact/column"
+import { Button } from "primereact/button"
+import { ConfirmDialog } from "primereact/confirmdialog"
+import { confirmDialog } from "primereact/confirmdialog"
+import { Toast } from "primereact/toast"
+import "primeicons/primeicons.css"
+import AddData from "./AddData"
+import AppNavber from "./navbar/AppNavber"
 
 const TableData2 = () => {
-  const [weightDatas, setWeightDatas] = useState([]);
-  const [selectedlist, setSelectedlist] = useState(null);
-  const [visible, setVisible] = useState(false);
-  const dt = useRef(null);
-  console.log(visible);
+  const [weightDatas, setWeightDatas] = useState([])
+  const [selectedlist, setSelectedlist] = useState(null)
+  const [visible, setVisible] = useState(false)
+  const dt = useRef(null)
+  console.log(visible)
 
   /*   if (selectedlist) {
     console.log(selectedlist.DataID);
@@ -86,7 +87,7 @@ const TableData2 = () => {
       field: "WeightNet",
       header: "WeightNet",
     },
-  ];
+  ]
 
   //fetchData
   const fetchData = async () => {
@@ -101,20 +102,20 @@ const TableData2 = () => {
             WeightDateOutTo: "2023-12-31",
           }),
         }
-      );
+      )
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`)
       }
 
       if (response.ok) {
-        const data = await response.json(); // แปลง response เป็น JSON
-        await setWeightDatas(data);
+        const data = await response.json() // แปลง response เป็น JSON
+        await setWeightDatas(data)
         //console.log("Data from the server:", data);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
+      console.error("Error fetching data:", error)
     }
-  };
+  }
 
   //addData
 
@@ -123,9 +124,9 @@ const TableData2 = () => {
     try {
       // ตรวจสอบว่า selectedlist มีค่าหรือไม่
       if (!selectedlist) {
-        console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ");
+        console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ")
         // คุณอาจต้องแสดงข้อความไปยังผู้ใช้ทาง UI ด้วย
-        return;
+        return
       }
 
       // ทำ HTTP POST request ไปยัง URL ที่กำหนด
@@ -137,20 +138,20 @@ const TableData2 = () => {
             DataID: selectedlist.DataID,
           }),
         }
-      );
+      )
 
       // ตรวจสอบว่าการเชื่อมต่อกับเซิร์ฟเวอร์เป็นไปตามปกติหรือไม่
       if (!response.ok) {
         // หากไม่ปกติ ให้ throw ข้อผิดพลาด
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`HTTP error! Status: ${response.status}`)
       }
 
       // สมมติว่าเซิร์ฟเวอร์ตอบกลับด้วยข้อมูลหลังจากการลบ
-      const data = await response.json();
-      await console.log(data);
-      await setSelectedlist(null);
-      await fetchData();
-      return data;
+      const data = await response.json()
+      await console.log(data)
+      await setSelectedlist(null)
+      await fetchData()
+      return data
 
       // ประมวลผลข้อมูลตามที่ต้องการ เช่น อัปเดต state หรือ UI
       //await setWeightDatas(data);
@@ -159,11 +160,11 @@ const TableData2 = () => {
       // console.log("ข้อมูลจากเซิร์ฟเวอร์:", data);
     } catch (error) {
       // ถ้ามีข้อผิดพลาดในขณะทำงาน ให้ล็อกไว้
-      console.error("เกิดข้อผิดพลาดในการลบข้อมูล:", error);
+      console.error("เกิดข้อผิดพลาดในการลบข้อมูล:", error)
     }
-  };
-  
-  const toast = useRef(null);
+  }
+
+  const toast = useRef(null)
 
   const accept = () => {
     delData().then((deletedData) => {
@@ -173,17 +174,17 @@ const TableData2 = () => {
           summary: "แจ้งเตือน",
           detail: "ลบข้อมูลเรียบร้อย",
           life: 3000,
-        });
+        })
       } else {
         toast.current.show({
           severity: "warn",
           summary: "แจ้งเตือน",
           detail: "กรุณาเลือกข้อมูล",
           life: 3000,
-        });
+        })
       }
-    });
-  };
+    })
+  }
 
   const reject = () => {
     toast.current.show({
@@ -191,20 +192,20 @@ const TableData2 = () => {
       summary: "แจ้งเตือน",
       detail: "ยกเลิก",
       life: 3000,
-    });
-  };
+    })
+  }
 
   const confirmdel = () => {
     if (!selectedlist) {
-      console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ");
+      console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ")
       // คุณอาจต้องแสดงข้อความไปยังผู้ใช้ทาง UI ด้วย
       toast.current.show({
         severity: "warn",
         summary: "แจ้งเตือน",
         detail: "ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการลบ",
         life: 3000,
-      });
-      return;
+      })
+      return
     }
     confirmDialog({
       message: "Do you want to delete this record?",
@@ -214,43 +215,44 @@ const TableData2 = () => {
       rejectClassName: "",
       accept,
       reject,
-    });
-  };
+    })
+  }
 
   //load Data
   useEffect(() => {
-    fetchData();
-  }, []);
+    fetchData()
+    //getData()
+  }, [])
 
   //Export CSV Pdf
   const exportCSV = (selectionOnly) => {
-    dt.current.exportCSV({ selectionOnly });
-  };
+    dt.current.exportCSV({ selectionOnly })
+  }
 
   const exportPdf = () => {
     import("jspdf").then((jsPDF) => {
       import("jspdf-autotable").then(() => {
-        const doc = new jsPDF.default(0, 0);
+        const doc = new jsPDF.default(0, 0)
 
-        doc.autoTable(exportColumns, weightDatas);
-        doc.save("weightDatas.pdf");
-      });
-    });
-  };
+        doc.autoTable(exportColumns, weightDatas)
+        doc.save("weightDatas.pdf")
+      })
+    })
+  }
 
   const exportColumns = columns.map((col) => ({
     title: col.header,
     dataKey: col.field,
-  }));
+  }))
 
   //visible Dialog
   const handleClick = () => {
     if (!visible) {
-      setVisible(true);
+      setVisible(true)
     } else {
-      setVisible(false);
+      setVisible(false)
     }
-  };
+  }
 
   const header = (
     <div className="flex sm:flex-row flex-col  sm:align-items-center items-center justify-between gap-2">
@@ -294,7 +296,7 @@ const TableData2 = () => {
         />
       </div>
     </div>
-  );
+  )
   return (
     <>
       <AppNavber />
@@ -337,7 +339,7 @@ const TableData2 = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default TableData2;
+export default TableData2

@@ -7,7 +7,7 @@ const editData = async (
   selectedlist
 ) => {
   try {
-    console.log("selectedlist: ", selectedlist)
+    //console.log("selectedlist: ", selectedlist)
     // ตรวจสอบว่า selectedlist มีค่าหรือไม่
     if (!selectedlist) {
       console.log("ไม่ได้เลือกข้อมูล กรุณาเลือกข้อมูลที่ต้องการแก้ไข")
@@ -15,6 +15,7 @@ const editData = async (
       return
     }
 
+    console.log("editData:", editDataURL, editDataBody)
     // ทำ HTTP POST request ไปยัง URL ที่กำหนด
     const response = await fetch(editDataURL, editDataBody)
 

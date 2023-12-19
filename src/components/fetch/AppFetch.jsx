@@ -23,15 +23,15 @@ function AppFetch({
   resetState,
   setState,
 }) {
-  console.log("selectedlistOut ", selectedlistOut)
+  //console.log("selectedlistOut ", selectedlistOut)
   //console.log("singlefetchDataURL:AppFetch: ", singlefetchDataURL)
-  //console.log("resetState:AppFetch: ", resetState)
+  console.log("resetState:AppFetch: ", resetState)
   //console.log("pops AppFetch: ", addDataURL, addDataBody);
   //console.log("AppFetch: ", child);
   const [Datas, setDatas] = useState([])
   const [selectedlist, setSelectedlist] = useState(null)
   const dt = useRef(null)
-  console.log("selectedlist:AppFetch:", selectedlist)
+  //console.log("selectedlist:AppFetch:", selectedlist)
   //console.log(delDataBody);
 
   const fetchdata = async () => {
@@ -46,11 +46,11 @@ function AppFetch({
   //load Data
   useEffect(() => {
     fetchdata()
-    console.log("load Data")
+    //console.log("load Data")
   }, [])
 
   const funheader = () => {
-    //console.log("resetState:funheader: ", resetState)
+    console.log("resetState:AppFetch: ", resetState)
     return header(
       child,
       selectedlist,
@@ -104,6 +104,7 @@ function AppFetch({
             {columns.map((e, i) => (
               <Column
                 key={i}
+                //style={{ width: "auto" }}
                 field={e.field}
                 header={e.header}
                 //style={{ width: "50%" }}

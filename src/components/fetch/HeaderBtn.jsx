@@ -28,8 +28,8 @@ const header = (
   resetState,
   setState
 ) => {
-  console.log("selectedlist1?? ", selectedlist)
-  //console.log("resetState:header: ", resetState)
+  //console.log("selectedlist1?? ", selectedlist)
+  console.log("resetState:header: ", resetState)
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   //console.log(setSelectedlist);
@@ -90,7 +90,6 @@ const header = (
           detail: "แก้ไขข้อมูลเรียบร้อย",
           life: 3000,
         })
-
         resetState()
         setVisibleEdit(false)
       } else {
@@ -205,6 +204,7 @@ const header = (
   const handleClickAdd = () => {
     if (!visibleAdd) {
       setVisibleAdd(true)
+      resetState()
     } else {
       setVisibleAdd(false)
     }
