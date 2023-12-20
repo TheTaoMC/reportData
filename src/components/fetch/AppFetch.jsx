@@ -4,10 +4,10 @@ import { Column } from "primereact/column"
 import "primeicons/primeicons.css"
 import fetchData from "./FetchData"
 import header from "./HeaderBtn"
-import AppProduct from "../product/AppProduct"
 
 function AppFetch({
   title,
+  sortField,
   fetchDataURL,
   delDataURL,
   addDataURL,
@@ -25,7 +25,7 @@ function AppFetch({
 }) {
   //console.log("selectedlistOut ", selectedlistOut)
   //console.log("singlefetchDataURL:AppFetch: ", singlefetchDataURL)
-  console.log("resetState:AppFetch: ", resetState)
+  //console.log("resetState:AppFetch: ", resetState)
   //console.log("pops AppFetch: ", addDataURL, addDataBody);
   //console.log("AppFetch: ", child);
   const [Datas, setDatas] = useState([])
@@ -50,7 +50,7 @@ function AppFetch({
   }, [])
 
   const funheader = () => {
-    console.log("resetState:AppFetch: ", resetState)
+    //console.log("resetState:AppFetch: ", resetState)
     return header(
       child,
       selectedlist,
@@ -78,6 +78,7 @@ function AppFetch({
         </div>
         <div className="card">
           <DataTable
+            sortField={sortField}
             value={Datas}
             header={funheader}
             ref={dt}

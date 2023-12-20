@@ -29,7 +29,7 @@ const header = (
   setState
 ) => {
   //console.log("selectedlist1?? ", selectedlist)
-  console.log("resetState:header: ", resetState)
+  //console.log("resetState:header: ", resetState)
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   //console.log(setSelectedlist);
@@ -40,7 +40,7 @@ const header = (
       const data = await addData(addDataURL, addDataBody, fetchdata)
       //console.log("typeof fetchdata : ", typeof fetchdata);
 
-      //console.log("? ", data);
+      console.log("add data?????? ", data)
       if (data) {
         await toast.current.show({
           severity: "info",

@@ -5,12 +5,12 @@ import { Dialog } from "primereact/dialog";
 const AddData = ({ VisibleIn, VisibleOut, SaveOut, child, title }) => {
   //console.log("AddData: ", child);
   //data add
-  const [dataID, setDataID] = useState("");
-  const [productID, setProductID] = useState("");
-  const [productName, setProductName] = useState("");
-  const [price, setPrice] = useState("");
-  const [flagCancel, setFlagCancel] = useState(false);
-  const [checked, setChecked] = useState(false);
+  //const [dataID, setDataID] = useState("");
+  //const [productID, setProductID] = useState("");
+  //const [productName, setProductName] = useState("");
+  //const [price, setPrice] = useState("");
+  //const [flagCancel, setFlagCancel] = useState(false);
+  //const [checked, setChecked] = useState(false);
   //console.log("1. ", checked);
 
   const [visible, setVisible] = useState(false);

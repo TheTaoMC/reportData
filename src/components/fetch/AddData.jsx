@@ -1,12 +1,12 @@
 //addData
 const addData = async (addDataURL, addDataBody, fetchdata) => {
-  //console.log("addData: ", addDataURL, addDataBody);
+  console.log("addData: ", addDataURL, addDataBody);
   try {
     //ตรวจสอบ
 
     // ทำ HTTP POST request ไปยัง URL ที่กำหนด
     const response = await fetch(addDataURL, addDataBody);
-
+    console.log("addData2: ", response);
     // ตรวจสอบว่าการเชื่อมต่อกับเซิร์ฟเวอร์เป็นไปตามปกติหรือไม่
     if (!response.ok) {
       // หากไม่ปกติ ให้ throw ข้อผิดพลาด

@@ -1,34 +1,77 @@
-import React, { useState } from "react";
-import AppNavber from "../navbar/AppNavber";
-import AppFetch from "../fetch/AppFetch";
+import React, { useState } from "react"
+import { v4 as uuidv4 } from "uuid"
+import AppNavber from "../navbar/AppNavber"
+import AppFetch from "../fetch/AppFetch"
 
-import { InputText } from "primereact/inputtext";
-import { Button } from "primereact/button";
-import { Checkbox } from "primereact/checkbox";
+import { InputText } from "primereact/inputtext"
+import { InputNumber } from "primereact/inputnumber"
+import { Checkbox } from "primereact/checkbox"
 
 function AppCustomer() {
-  //const [dataID, setDataID] = useState("");
-  const [productID, setProductID] = useState("");
-  const [productName, setProductName] = useState("");
-  const [price, setPrice] = useState("");
-  const [flagCancel, setFlagCancel] = useState(false);
-  const [checked, setChecked] = useState(false);
+  const [data, setData] = useState("")
+  const [dataID, setDataID] = useState("")
+  const [customerID, setCustomerID] = useState("")
+  const [customerName, setCustomerName] = useState("")
+  const [address1, setAddress1] = useState("")
+  const [address2, setAddress2] = useState("")
+  const [flagCancel, setFlagCancel] = useState(false)
 
-  const [dataID, setDataID] = useState("");
-  console.log(dataID.DataID);
   const fetchDataBody = {
     method: "GET",
-  };
+  }
   const delDataBody = {
     method: "POST",
     body: JSON.stringify({
-      DataID: dataID.DataID,
+      DataID: data.DataID || "",
     }),
-  };
+  }
+
+  const addDataBody = {
+    method: "POST",
+    body: JSON.stringify({
+      DataID: uuidv4(),
+      CustomerID: customerID,
+      CustomerName: customerName,
+      Address1: address1,
+      Address2: address2,
+      FlagCancel: flagCancel ? "Y" : "N",
+    }),
+  }
+
+  const editDataBody = {
+    method: "POST",
+    body: JSON.stringify({
+      DataID: dataID,
+      CustomerID: customerID,
+      CustomerName: customerName,
+      Address1: address1,
+      Address2: address2,
+      FlagCancel: flagCancel ? "Y" : "N",
+    }),
+  }
+
+  const resetState = () => {
+    setDataID("")
+    setCustomerID("")
+    setCustomerName("")
+    setAddress1("")
+    setAddress2("")
+    setFlagCancel(false)
+  }
+
+  const setState = () => {
+    setDataID(data.DataID)
+    setCustomerID(data.CustomerID)
+    setCustomerName(data.CustomerName)
+    setAddress1(data.Address1)
+    setAddress2(data.Address2)
+    setFlagCancel(data.FlagCancel === "Y" ? true : false)
+  }
 
   const upDatedataID = (selectedlist) => {
-    setDataID(selectedlist);
-  };
+    console.log("selectedlist: ", selectedlist)
+    setData(selectedlist)
+  }
 
   const columns = [
     {
@@ -47,45 +90,57 @@ function AppCustomer() {
       field: "Address2",
       header: "Address2",
     },
-  ];
+    {
+      field: "FlagCancel",
+      header: "FlagCancel",
+    },
+  ]
 
   const addedit = (
     <div>
-      <div>ProductID</div>
+      <div>CustomerID</div>
       <div>
         <InputText
+          autoFocus
           className="w-[100%]"
-          value={productID}
+          value={customerID}
           onChange={(e) => {
-            setDataID(e.target.value);
-            setProductID(e.target.value);
+            setCustomerID(e.target.value)
           }}
         />
       </div>
-      <div>ProductName</div>
+      <div>CustomerName</div>
       <div>
         <InputText
           className="w-[100%]"
-          value={productName}
-          onChange={(e) => setProductName(e.target.value)}
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
         />
       </div>
-      <div>Price</div>
+      <div>Address1</div>
+      <div>
+        <InputText
+          className="w-[100%]"
+          value={address1}
+          onChange={(e) => setAddress1(e.target.value)}
+        />
+      </div>
+      <div>Address2</div>
+      <div>
+        <InputText
+          className="w-[100%]"
+          value={address2}
+          onChange={(e) => setAddress2(e.target.value)}
+        />
+      </div>
+
       <div>
         <div className="flex gap-2  justify-between">
-          <div className="flex gap-1 items-center">
-            <InputText
-              className="w-24"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-            <label htmlFor="ingredient1">บาท</label>
-          </div>
-
-          <div className="flex gap-1 items-center">
+          <div className="flex gap-2 items-center">
+            <div>สถานะ</div>
             <Checkbox
-              onChange={(e) => setChecked(e.checked)}
-              checked={checked}
+              onChange={(e) => setFlagCancel(e.checked)}
+              checked={flagCancel}
             ></Checkbox>
             <label htmlFor="ingredient1" className="">
               ยกเลิก
@@ -93,38 +148,40 @@ function AppCustomer() {
           </div>
         </div>
       </div>
-      <div className="flex gap-2 mt-2">
-        <Button className="w-20" label="บันทึก" />
-        <Button
-          className="w-20"
-          onClick={() => {
-            VisibleOut();
-          }}
-          label="ยกเลิก"
-        />
-      </div>
     </div>
-  );
+  )
+
   return (
     <div>
       <AppNavber />
       <AppFetch
-        title={"ลูกค้า"}
+        sortField={"CustomerName"}
+        title={"สินค้า"}
         fetchDataURL={
           "https://theotesteng.000webhostapp.com/API/api/customer/read.php"
         }
         delDataURL={
           "https://theotesteng.000webhostapp.com/API/api/customer/delete.php"
         }
+        addDataURL={
+          "https://theotesteng.000webhostapp.com/API/api/customer/create.php"
+        }
+        editDataURL={
+          "https://theotesteng.000webhostapp.com/API/api/customer/update.php"
+        }
         fetchDataBody={fetchDataBody}
         delDataBody={delDataBody}
+        addDataBody={addDataBody}
+        editDataBody={editDataBody}
         columns={columns}
-        minWidth={"50rem"}
+        minWidth={"10rem"}
         selectedlistOut={upDatedataID}
         child={addedit}
+        resetState={resetState}
+        setState={setState}
       />
     </div>
-  );
+  )
 }
 
-export default AppCustomer;
+export default AppCustomer

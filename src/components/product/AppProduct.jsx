@@ -17,8 +17,6 @@ function AppProduct() {
 
   //console.log("selectedlist:AppProduct:33 ", dataID)
 
-  //console.log(productID)
-
   const fetchDataBody = {
     method: "GET",
   }
@@ -153,6 +151,7 @@ function AppProduct() {
     <div>
       <AppNavber />
       <AppFetch
+        sortField={"ProductName"}
         title={"สินค้า"}
         fetchDataURL={
           "https://theotesteng.000webhostapp.com/API/api/product/read.php"
