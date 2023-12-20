@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react"
 import { DataTable } from "primereact/datatable"
 import { Column } from "primereact/column"
-import "primeicons/primeicons.css"
 import fetchData from "./FetchData"
 import header from "./HeaderBtn"
 
@@ -78,7 +77,10 @@ function AppFetch({
         </div>
         <div className="card">
           <DataTable
+            //tableClassName="text-red-500"
+            //className="text-red-500"
             sortField={sortField}
+            sortOrder={1}
             value={Datas}
             header={funheader}
             ref={dt}
@@ -105,10 +107,8 @@ function AppFetch({
             {columns.map((e, i) => (
               <Column
                 key={i}
-                //style={{ width: "auto" }}
                 field={e.field}
                 header={e.header}
-                //style={{ width: "50%" }}
                 sortable
               ></Column>
             ))}

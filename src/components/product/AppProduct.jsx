@@ -73,10 +73,6 @@ function AppProduct() {
 
   const columns = [
     {
-      field: "DataID",
-      header: "DataID",
-    },
-    {
       field: "ProductID",
       header: "ProductID",
     },
