@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function AppNavber() {
   return (
-    <div className="flex gap-2 justify-center p-2 bg-cyan-700 text-gray-200 text-lg">
+    <div className="flex flex-wrap gap-2 justify-center p-2 bg-cyan-700 text-gray-200 text-lg">
       <Link
         className="border rounded-lg bg-cyan-700 hover:bg-cyan-800 p-1"
         to="/"

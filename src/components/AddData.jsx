@@ -21,7 +21,7 @@ const AddData = ({ VisibleIn, VisibleOut, SaveOut, child, title }) => {
       <Dialog
         header={title}
         visible={VisibleIn}
-        style={{ width: "50vw" }}
+        style={{ width: "70vw" }}
         onHide={() => {
           VisibleOut();
         }}
@@ -36,7 +36,7 @@ const AddData = ({ VisibleIn, VisibleOut, SaveOut, child, title }) => {
             className="w-20"
             label="บันทึก"
           />
-          
+
           <Button
             className="w-20"
             onClick={() => {
