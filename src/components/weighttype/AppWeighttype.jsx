@@ -1,27 +1,27 @@
-import React, { useState } from "react"
-import { v4 as uuidv4 } from "uuid"
-import AppNavber from "../navbar/AppNavber"
-import AppFetch from "../fetch/AppFetch"
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import AppNavber from "../navbar/AppNavber";
+import AppFetch from "../fetch/AppFetch";
 
-import { InputText } from "primereact/inputtext"
-import { Checkbox } from "primereact/checkbox"
+import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
 
 function AppWeighttype() {
-  const [data, setData] = useState("")
-  const [dataID, setDataID] = useState("")
-  const [weightTypeID, setWeightTypeID] = useState("")
-  const [weightTypeName, setWeightTypeName] = useState("")
-  const [flagCancel, setFlagCancel] = useState(false)
+  const [data, setData] = useState("");
+  const [dataID, setDataID] = useState("");
+  const [weightTypeID, setWeightTypeID] = useState("");
+  const [weightTypeName, setWeightTypeName] = useState("");
+  const [flagCancel, setFlagCancel] = useState(false);
 
   const fetchDataBody = {
     method: "GET",
-  }
+  };
   const delDataBody = {
     method: "POST",
     body: JSON.stringify({
       DataID: data.DataID || "",
     }),
-  }
+  };
 
   const addDataBody = {
     method: "POST",
@@ -31,7 +31,7 @@ function AppWeighttype() {
       WeightTypeName: weightTypeName,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
-  }
+  };
 
   const editDataBody = {
     method: "POST",
@@ -41,27 +41,27 @@ function AppWeighttype() {
       WeightTypeName: weightTypeName,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
-  }
+  };
 
   const resetState = () => {
-    setDataID("")
-    setWeightTypeID("")
-    setWeightTypeName("")
-    setFlagCancel(false)
-  }
+    setDataID("");
+    setWeightTypeID("");
+    setWeightTypeName("");
+    setFlagCancel(false);
+  };
 
   const setState = () => {
-    setDataID(data.DataID)
-    setWeightTypeID(data.WeightTypeID)
-    setWeightTypeName(data.WeightTypeName)
-    setFlagCancel(data.FlagCancel === "Y" ? true : false)
-  }
+    setDataID(data.DataID);
+    setWeightTypeID(data.WeightTypeID);
+    setWeightTypeName(data.WeightTypeName);
+    setFlagCancel(data.FlagCancel === "Y" ? true : false);
+  };
 
   const upDatedataID = (selectedlist) => {
-    console.log("selectedlist:AppProduct:2 ", selectedlist)
+    console.log("selectedlist:AppProduct:2 ", selectedlist);
 
-    setData(selectedlist)
-  }
+    setData(selectedlist);
+  };
 
   const columns = [
     {
@@ -76,7 +76,7 @@ function AppWeighttype() {
       field: "FlagCancel",
       header: "FlagCancel",
     },
-  ]
+  ];
 
   const addedit = (
     <div>
@@ -87,7 +87,7 @@ function AppWeighttype() {
           className="w-[100%]"
           value={weightTypeID}
           onChange={(e) => {
-            setWeightTypeID(e.target.value)
+            setWeightTypeID(e.target.value);
           }}
         />
       </div>
@@ -114,14 +114,14 @@ function AppWeighttype() {
         </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <div>
       <AppNavber />
       <AppFetch
         sortField={"WeightTypeName"}
-        title={"สินค้า"}
+        title={"ประเภทชั่ง"}
         fetchDataURL={
           "https://theotesteng.000webhostapp.com/API/api/weighttype/read.php"
         }
@@ -146,7 +146,7 @@ function AppWeighttype() {
         setState={setState}
       />
     </div>
-  )
+  );
 }
 
-export default AppWeighttype
+export default AppWeighttype;

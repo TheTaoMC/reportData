@@ -1,30 +1,30 @@
-import React, { useState } from "react"
-import { v4 as uuidv4 } from "uuid"
-import AppNavber from "../navbar/AppNavber"
-import AppFetch from "../fetch/AppFetch"
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import AppNavber from "../navbar/AppNavber";
+import AppFetch from "../fetch/AppFetch";
 
-import { InputText } from "primereact/inputtext"
-import { InputNumber } from "primereact/inputnumber"
-import { Checkbox } from "primereact/checkbox"
+import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
+import { Checkbox } from "primereact/checkbox";
 
 function AppCustomer() {
-  const [data, setData] = useState("")
-  const [dataID, setDataID] = useState("")
-  const [customerID, setCustomerID] = useState("")
-  const [customerName, setCustomerName] = useState("")
-  const [address1, setAddress1] = useState("")
-  const [address2, setAddress2] = useState("")
-  const [flagCancel, setFlagCancel] = useState(false)
+  const [data, setData] = useState("");
+  const [dataID, setDataID] = useState("");
+  const [customerID, setCustomerID] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [flagCancel, setFlagCancel] = useState(false);
 
   const fetchDataBody = {
     method: "GET",
-  }
+  };
   const delDataBody = {
     method: "POST",
     body: JSON.stringify({
       DataID: data.DataID || "",
     }),
-  }
+  };
 
   const addDataBody = {
     method: "POST",
@@ -36,7 +36,7 @@ function AppCustomer() {
       Address2: address2,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
-  }
+  };
 
   const editDataBody = {
     method: "POST",
@@ -48,30 +48,30 @@ function AppCustomer() {
       Address2: address2,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
-  }
+  };
 
   const resetState = () => {
-    setDataID("")
-    setCustomerID("")
-    setCustomerName("")
-    setAddress1("")
-    setAddress2("")
-    setFlagCancel(false)
-  }
+    setDataID("");
+    setCustomerID("");
+    setCustomerName("");
+    setAddress1("");
+    setAddress2("");
+    setFlagCancel(false);
+  };
 
   const setState = () => {
-    setDataID(data.DataID)
-    setCustomerID(data.CustomerID)
-    setCustomerName(data.CustomerName)
-    setAddress1(data.Address1)
-    setAddress2(data.Address2)
-    setFlagCancel(data.FlagCancel === "Y" ? true : false)
-  }
+    setDataID(data.DataID);
+    setCustomerID(data.CustomerID);
+    setCustomerName(data.CustomerName);
+    setAddress1(data.Address1);
+    setAddress2(data.Address2);
+    setFlagCancel(data.FlagCancel === "Y" ? true : false);
+  };
 
   const upDatedataID = (selectedlist) => {
-    console.log("selectedlist: ", selectedlist)
-    setData(selectedlist)
-  }
+    console.log("selectedlist: ", selectedlist);
+    setData(selectedlist);
+  };
 
   const columns = [
     {
@@ -94,7 +94,7 @@ function AppCustomer() {
       field: "FlagCancel",
       header: "FlagCancel",
     },
-  ]
+  ];
 
   const addedit = (
     <div>
@@ -105,7 +105,7 @@ function AppCustomer() {
           className="w-[100%]"
           value={customerID}
           onChange={(e) => {
-            setCustomerID(e.target.value)
+            setCustomerID(e.target.value);
           }}
         />
       </div>
@@ -149,14 +149,14 @@ function AppCustomer() {
         </div>
       </div>
     </div>
-  )
+  );
 
   return (
     <div>
       <AppNavber />
       <AppFetch
         sortField={"CustomerName"}
-        title={"สินค้า"}
+        title={"ลูกค้า"}
         fetchDataURL={
           "https://theotesteng.000webhostapp.com/API/api/customer/read.php"
         }
@@ -181,7 +181,7 @@ function AppCustomer() {
         setState={setState}
       />
     </div>
-  )
+  );
 }
 
-export default AppCustomer
+export default AppCustomer;

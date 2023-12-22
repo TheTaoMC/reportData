@@ -1,29 +1,29 @@
-import React, { useState } from "react"
-import { v4 as uuidv4 } from "uuid"
-import AppNavber from "../navbar/AppNavber"
-import AppFetch from "../fetch/AppFetch"
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import AppNavber from "../navbar/AppNavber";
+import AppFetch from "../fetch/AppFetch";
 
-import { InputText } from "primereact/inputtext"
-import { Checkbox } from "primereact/checkbox"
+import { InputText } from "primereact/inputtext";
+import { Checkbox } from "primereact/checkbox";
 
 function AppTransporter() {
-  const [data, setData] = useState("")
-  const [dataID, setDataID] = useState("")
-  const [transporterID, setTransporterID] = useState("")
-  const [transporterName, setTransporterName] = useState("")
-  const [address1, setAddress1] = useState("")
-  const [address2, setAddress2] = useState("")
-  const [flagCancel, setFlagCancel] = useState(false)
+  const [data, setData] = useState("");
+  const [dataID, setDataID] = useState("");
+  const [transporterID, setTransporterID] = useState("");
+  const [transporterName, setTransporterName] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
+  const [flagCancel, setFlagCancel] = useState(false);
 
   const fetchDataBody = {
     method: "GET",
-  }
+  };
   const delDataBody = {
     method: "POST",
     body: JSON.stringify({
       DataID: data.DataID || "",
     }),
-  }
+  };
 
   const addDataBody = {
     method: "POST",
@@ -35,7 +35,7 @@ function AppTransporter() {
       Address2: address2,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
-  }
+  };
 
   const editDataBody = {
     method: "POST",
@@ -47,31 +47,31 @@ function AppTransporter() {
       Address2: address2,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
-  }
+  };
 
   const resetState = () => {
-    setDataID("")
-    setTransporterID("")
-    setTransporterName("")
-    setAddress1("")
-    setAddress2("")
-    setFlagCancel(false)
-  }
+    setDataID("");
+    setTransporterID("");
+    setTransporterName("");
+    setAddress1("");
+    setAddress2("");
+    setFlagCancel(false);
+  };
 
   const setState = () => {
-    setDataID(data.DataID)
-    setTransporterID(data.TransporterID)
-    setTransporterName(data.TransporterName)
-    setAddress1(data.Address1)
-    setAddress2(data.Address2)
-    setFlagCancel(data.FlagCancel === "Y" ? true : false)
-  }
+    setDataID(data.DataID);
+    setTransporterID(data.TransporterID);
+    setTransporterName(data.TransporterName);
+    setAddress1(data.Address1);
+    setAddress2(data.Address2);
+    setFlagCancel(data.FlagCancel === "Y" ? true : false);
+  };
 
   const upDatedataID = (selectedlist) => {
-    console.log("selectedlist:AppProduct:2 ", selectedlist)
+    console.log("selectedlist:AppProduct:2 ", selectedlist);
 
-    setData(selectedlist)
-  }
+    setData(selectedlist);
+  };
 
   const columns = [
     {
@@ -94,7 +94,7 @@ function AppTransporter() {
       field: "FlagCancel",
       header: "FlagCancel",
     },
-  ]
+  ];
 
   const addedit = (
     <div>
@@ -105,7 +105,7 @@ function AppTransporter() {
           className="w-[100%]"
           value={transporterID}
           onChange={(e) => {
-            setTransporterID(e.target.value)
+            setTransporterID(e.target.value);
           }}
         />
       </div>
@@ -148,13 +148,13 @@ function AppTransporter() {
         </div>
       </div>
     </div>
-  )
+  );
   return (
     <div>
       <AppNavber />
       <AppFetch
         sortField={"TransporterName"}
-        title={"สินค้า"}
+        title={"ผู้ขนส่ง"}
         fetchDataURL={
           "https://theotesteng.000webhostapp.com/API/api/transporter/read.php"
         }
@@ -179,7 +179,7 @@ function AppTransporter() {
         setState={setState}
       />
     </div>
-  )
+  );
 }
 
-export default AppTransporter
+export default AppTransporter;

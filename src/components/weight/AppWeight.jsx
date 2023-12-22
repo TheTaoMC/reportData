@@ -93,7 +93,7 @@ function AppWeight() {
     <div>
       <AppNavber />
       <AppFetch
-        title={"ข้อมูลชั่ง"}
+        title={"ข้อมูลชั่งน้ำหนัก"}
         fetchDataURL={
           "https://theotesteng.000webhostapp.com/API/api/weight/read.php"
         }
