@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import fetchData from "./FetchData";
-import header from "./HeaderBtn";
+import { useState, useEffect, useRef } from "react"
+import { DataTable } from "primereact/datatable"
+import { Column } from "primereact/column"
+import fetchData from "./FetchData"
+import header from "./HeaderBtn"
 
 function AppFetch({
   title,
@@ -21,32 +21,34 @@ function AppFetch({
   child,
   resetState,
   setState,
+  onSearchFiltersChange,
 }) {
-  console.log("title ", title);
+  //console.log("title ", title);
   //console.log("singlefetchDataURL:AppFetch: ", singlefetchDataURL)
   //console.log("resetState:AppFetch: ", resetState)
   //console.log("pops AppFetch: ", addDataURL, addDataBody);
+  //console.log("pops AppFetch:fetchDataBody: ", fetchDataBody)
   //console.log("AppFetch: ", child);
-  const [Datas, setDatas] = useState([]);
-  const [selectedlist, setSelectedlist] = useState(null);
-  const dt = useRef(null);
+  const [Datas, setDatas] = useState([])
+  const [selectedlist, setSelectedlist] = useState(null)
+  const dt = useRef(null)
   //console.log("selectedlist:AppFetch:", selectedlist)
   //console.log(delDataBody);
 
   const fetchdata = async () => {
     try {
-      await fetchData(fetchDataURL, fetchDataBody, setDatas);
+      await fetchData(fetchDataURL, fetchDataBody, setDatas)
     } catch (error) {
-      console.error("Error deleting data:", error);
-      throw error; // ให้เรียก throw error เพื่อให้ catch ใน caller จัดการ
+      console.error("Error deleting data:", error)
+      throw error // ให้เรียก throw error เพื่อให้ catch ใน caller จัดการ
     }
-  };
+  }
 
   //load Data
   useEffect(() => {
-    fetchdata();
-    //console.log("load Data")
-  }, []);
+    fetchdata()
+    console.log("load Data")
+  }, [fetchDataBody])
 
   const funheader = () => {
     //console.log("resetState:AppFetch: ", resetState)
@@ -66,9 +68,10 @@ function AppFetch({
       editDataURL,
       editDataBody,
       resetState,
-      setState
-    );
-  };
+      setState,
+      onSearchFiltersChange
+    )
+  }
 
   return (
     <>
@@ -99,8 +102,8 @@ function AppFetch({
             selectionMode="single"
             selection={selectedlist}
             onSelectionChange={(e) => {
-              setSelectedlist(e.value);
-              selectedlistOut(e.value);
+              setSelectedlist(e.value)
+              selectedlistOut(e.value)
             }}
             dataKey="DataID"
             metaKeySelection={true}
@@ -117,7 +120,7 @@ function AppFetch({
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default AppFetch;
+export default AppFetch

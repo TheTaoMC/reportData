@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Checkbox } from "@material-tailwind/react";
-import { Accordion, AccordionTab } from "primereact/accordion";
-import { InputText } from "primereact/inputtext";
-import { Calendar } from "primereact/calendar";
-import { Dropdown } from "primereact/dropdown";
-import fetchData from "./FetchData";
-import { Button } from "primereact/button";
-import { classNames } from "primereact/utils";
+import React, { useEffect, useState } from "react"
+import { Checkbox } from "@material-tailwind/react"
+import { Accordion, AccordionTab } from "primereact/accordion"
+import { InputText } from "primereact/inputtext"
+import { Calendar } from "primereact/calendar"
+import { Dropdown } from "primereact/dropdown"
+import fetchData from "./FetchData"
+import { Button } from "primereact/button"
+import { classNames } from "primereact/utils"
 
-function AppSearch() {
-  const [dataCustomers, setDataCustomers] = useState([]);
-  const [dataProducts, setDataProducts] = useState([]);
-  const [dataWeighttypes, setDataWeighttypes] = useState([]);
-  const [dataDrivers, setDataDrivers] = useState([]);
-  const [dataTransporters, setDataTransporters] = useState([]);
+function AppSearch({ onSearchFiltersChange }) {
+  const [dataCustomers, setDataCustomers] = useState([])
+  const [dataProducts, setDataProducts] = useState([])
+  const [dataWeighttypes, setDataWeighttypes] = useState([])
+  const [dataDrivers, setDataDrivers] = useState([])
+  const [dataTransporters, setDataTransporters] = useState([])
 
   const [filters, setFilters] = useState({
     WeightScaleIDInFilter: false,
@@ -34,7 +34,7 @@ function AppSearch() {
     FlagStatusFilter: false,
     FlagCancelFilter: false,
     FlagPaymentFilter: false,
-  });
+  })
 
   const [filters2, setFilters2] = useState([
     {
@@ -73,14 +73,14 @@ function AppSearch() {
       To: "",
     },
     {
-      Title: "ทะเบียนรถ",
+      Title: "เลขที่ออก",
       Filter: false,
       Typeinput: "text",
       From: "",
       To: "",
     },
     {
-      Title: "เลขที่ออก",
+      Title: "ทะเบียนรถ",
       Filter: false,
       Typeinput: "text",
       From: "",
@@ -147,12 +147,7 @@ function AppSearch() {
       From: "",
       To: "",
     },
-  ]);
-
-  //ดึงค่า WeightScaleIDInFilter
-  //console.log("เวลา: ", filters2[3].From);
-
-  //console.log("filters2: ", filters2);
+  ])
 
   const fetchDataAndSetState = async () => {
     try {
@@ -160,27 +155,27 @@ function AppSearch() {
         "https://theotesteng.000webhostapp.com/API/api/customer/read.php",
         { method: "GET" },
         setDataCustomers
-      );
+      )
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/product/read.php",
         { method: "GET" },
         setDataProducts
-      );
+      )
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/weighttype/read.php",
         { method: "GET" },
         setDataWeighttypes
-      );
+      )
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/driver/read.php",
         { method: "GET" },
         setDataDrivers
-      );
+      )
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/transporter/read.php",
         { method: "GET" },
         setDataTransporters
-      );
+      )
 
       //setDataCustomers(data1);
       //setDataProducts(data2);
@@ -188,76 +183,56 @@ function AppSearch() {
       //setDataDrivers(data4);
       //setDataTransporters(data5);
     } catch (error) {
-      console.error("Error fetching data:", error);
-      throw error;
+      console.error("Error fetching data:", error)
+      throw error
     }
-  };
+  }
 
   //load Data
   useEffect(() => {
-    fetchDataAndSetState();
-    //console.log("load Data")
-  }, []);
-
-  /*   const [weightScaleIDInFilter, setWeightScaleIDInFilter] = useState("");
-  const [weightScaleIDOutFilter, setWeightScaleIDOutFilter] = useState("");
-  const [sequenceWeightInFilter, setSequenceWeightInFilter] = useState("");
-  const [sequenceWeightOutFilter, setSequenceWeightOutFilter] = useState("");
-  const [weightDateInFilter, setWeightDateInFilter] = useState("");
-  const [weightTimeInFilter, setWeightTimeInFilter] = useState("");
-  const [weightDateOutFilter, setWeightDateOutFilter] = useState("");
-  const [weightTimeOutFilter, setWeightTimeOutFilter] = useState("");
-  const [carRegisterFilter, setCarRegisterFilter] = useState("");
-  const [weightTypeIDFilter, setWeightTypeIDFilter] = useState("");
-  const [customerIDFilter, setCustomerIDFilter] = useState("");
-  const [productIDFilter, setProductIDFilter] = useState("");
-  const [transporterIDFilter, setTransporterIDFilter] = useState("");
-  const [driverIDFilter, setDriverIDFilter] = useState("");
-  const [RFIDTagIDFilter, setRFIDTagIDFilter] = useState("");
-  const [FlagStatusFilter, setFlagStatusFilter] = useState("");
-  const [FlagCancelFilter, setFlagCancelFilter] = useState("");
-  const [FlagPaymentFilter, setFlagPaymentFilter] = useState(""); */
+    fetchDataAndSetState()
+  }, [])
 
   //filterKey คือตัวเลข
   const handleCheckbox = (i) => {
     setFilters2((prevFilters2) => {
       //console.log("i: ", i);
-      const updatedFilters = [...prevFilters2];
+      const updatedFilters = [...prevFilters2]
       //console.log("updatedFilters: ", updatedFilters);
       updatedFilters[i] = {
         ...updatedFilters[i],
         Filter: !updatedFilters[i].Filter,
-      };
-      return updatedFilters;
-    });
-  };
+      }
+      return updatedFilters
+    })
+  }
 
   const handleText = (index, fromorto, newValue) => {
-    console.log("fromorto: ", fromorto, newValue);
+    console.log("fromorto: ", fromorto, newValue)
     if (fromorto === "From") {
       setFilters2((prevFilters2) => {
-        const updatedFilters = [...prevFilters2];
-        console.log("updatedFilters: ", updatedFilters);
+        const updatedFilters = [...prevFilters2]
+        console.log("updatedFilters: ", updatedFilters)
         updatedFilters[index] = {
           ...updatedFilters[index],
           From: newValue,
           //fromorto: !updatedFilters[index].fromorto,
-        };
-        return updatedFilters;
-      });
+        }
+        return updatedFilters
+      })
     } else if (fromorto === "To") {
       setFilters2((prevFilters2) => {
-        const updatedFilters = [...prevFilters2];
-        console.log("updatedFilters: ", updatedFilters);
+        const updatedFilters = [...prevFilters2]
+        console.log("updatedFilters: ", updatedFilters)
         updatedFilters[index] = {
           ...updatedFilters[index],
           To: newValue,
           //fromorto: !updatedFilters[index].fromorto,
-        };
-        return updatedFilters;
-      });
+        }
+        return updatedFilters
+      })
     }
-  };
+  }
 
   //datas.map((datas) => console.log(datas.WeightTypeID, datas.WeightTypeName));
 
@@ -293,7 +268,7 @@ function AppSearch() {
               />
             )}
           </>
-        );
+        )
       case "calendar":
         return (
           <>
@@ -308,7 +283,6 @@ function AppSearch() {
                 dateFormat="dd/mm/yy"
                 showIcon
                 showButtonBar
-                onTodayButtonClick={true}
               />
             )}
             {fromorto === "To" && (
@@ -322,11 +296,10 @@ function AppSearch() {
                 dateFormat="dd/mm/yy"
                 showIcon
                 showButtonBar
-                onTodayButtonClick={true}
               />
             )}
           </>
-        );
+        )
       case "dropdown":
         return (
           <>
@@ -411,7 +384,7 @@ function AppSearch() {
               />
             )}
           </>
-        );
+        )
       case "Singledropdown":
         return (
           <>
@@ -432,28 +405,27 @@ function AppSearch() {
               />
             )}
           </>
-        );
+        )
       default:
-        return null;
+        return null
     }
-  };
+  }
 
-  const [activeIndex, setActiveIndex] = useState();
+  const [activeIndex, setActiveIndex] = useState()
 
   const onClickClose = () => {
     if (activeIndex.length === 0) {
       // If no tabs are open, open all tabs
-      setActiveIndex([0, 1, 2]);
+      setActiveIndex([0, 1, 2])
     } else {
       // If any tabs are open, close all tabs
-      setActiveIndex([]);
+      setActiveIndex([])
     }
-  };
+  }
 
   const handleSearch = () => {
-    console.log("Data Search: ", filters2);
-  };
-
+    onSearchFiltersChange(filters2)
+  }
   return (
     <div>
       <Accordion
@@ -548,7 +520,7 @@ function AppSearch() {
         </AccordionTab>
       </Accordion>
     </div>
-  );
+  )
 }
 
-export default AppSearch;
+export default AppSearch
