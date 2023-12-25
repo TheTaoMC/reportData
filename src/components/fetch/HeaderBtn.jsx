@@ -31,8 +31,10 @@ const header = (
   editDataURL,
   editDataBody,
   resetState,
-  setState
+  setState,
+  filters2Out
 ) => {
+  console.log("filters2Out: ", filters2Out);
   //console.log("selectedlist1?? ", selectedlist)
   //console.log("resetState:header: ", resetState)
   const [visibleAdd, setVisibleAdd] = useState(false);
@@ -349,7 +351,7 @@ const header = (
           />
         </div>
       </div>
-      {title === "รายงานชั่ง" ? <AppSearch /> : null}
+      {title === "รายงานชั่ง" ? <AppSearch filters2Out /> : null}
     </>
   );
 };
