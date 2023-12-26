@@ -25,6 +25,10 @@ import AppWeightreport from "./components/weightreport/AppWeightreport.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <AppLogin />,
+  },
+  {
+    path: "main",
     element: <App />,
   },
   {

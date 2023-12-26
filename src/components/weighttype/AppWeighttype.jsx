@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import AppNavber from "../navbar/AppNavber";
 import AppFetch from "../fetch/AppFetch";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
+import AppTimer from "../AppTimer";
 
 function AppWeighttype() {
   const [data, setData] = useState("");
@@ -115,7 +116,11 @@ function AppWeighttype() {
       </div>
     </div>
   );
-
+  const timeRemaining = AppTimer("/main");
+  useEffect(() => {
+    // You can use the timeRemaining if needed
+    console.log("Time Remaining:", timeRemaining);
+  }, [timeRemaining]);
   return (
     <div>
       <AppNavber />

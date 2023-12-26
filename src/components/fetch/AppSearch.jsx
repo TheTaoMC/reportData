@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react"
-import { Checkbox } from "@material-tailwind/react"
-import { Accordion, AccordionTab } from "primereact/accordion"
-import { InputText } from "primereact/inputtext"
-import { Calendar } from "primereact/calendar"
-import { Dropdown } from "primereact/dropdown"
-import fetchData from "./FetchData"
-import { Button } from "primereact/button"
-import { classNames } from "primereact/utils"
+import React, { useEffect, useState } from "react";
+import { Checkbox } from "@material-tailwind/react";
+import { Accordion, AccordionTab } from "primereact/accordion";
+import { InputText } from "primereact/inputtext";
+import { Calendar } from "primereact/calendar";
+import { Dropdown } from "primereact/dropdown";
+import fetchData from "./FetchData";
+import { Button } from "primereact/button";
+import { classNames } from "primereact/utils";
 
 function AppSearch({ onSearchFiltersChange }) {
-  const [dataCustomers, setDataCustomers] = useState([])
-  const [dataProducts, setDataProducts] = useState([])
-  const [dataWeighttypes, setDataWeighttypes] = useState([])
-  const [dataDrivers, setDataDrivers] = useState([])
-  const [dataTransporters, setDataTransporters] = useState([])
-
+  const [dataCustomers, setDataCustomers] = useState([]);
+  const [dataProducts, setDataProducts] = useState([]);
+  const [dataWeighttypes, setDataWeighttypes] = useState([]);
+  const [dataDrivers, setDataDrivers] = useState([]);
+  const [dataTransporters, setDataTransporters] = useState([]);
+  //console.log("dataTransporters: ", dataTransporters);
   const [filters, setFilters] = useState({
     WeightScaleIDInFilter: false,
     weightScaleIDOutFilter: false,
@@ -34,7 +34,7 @@ function AppSearch({ onSearchFiltersChange }) {
     FlagStatusFilter: false,
     FlagCancelFilter: false,
     FlagPaymentFilter: false,
-  })
+  });
 
   const [filters2, setFilters2] = useState([
     {
@@ -147,7 +147,7 @@ function AppSearch({ onSearchFiltersChange }) {
       From: "",
       To: "",
     },
-  ])
+  ]);
 
   const fetchDataAndSetState = async () => {
     try {
@@ -155,84 +155,105 @@ function AppSearch({ onSearchFiltersChange }) {
         "https://theotesteng.000webhostapp.com/API/api/customer/read.php",
         { method: "GET" },
         setDataCustomers
-      )
+      );
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/product/read.php",
         { method: "GET" },
         setDataProducts
-      )
+      );
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/weighttype/read.php",
         { method: "GET" },
         setDataWeighttypes
-      )
+      );
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/driver/read.php",
         { method: "GET" },
         setDataDrivers
-      )
+      );
       await fetchData(
         "https://theotesteng.000webhostapp.com/API/api/transporter/read.php",
         { method: "GET" },
         setDataTransporters
-      )
-
-      //setDataCustomers(data1);
-      //setDataProducts(data2);
-      //setDataWeighttypes(data3);
-      //setDataDrivers(data4);
-      //setDataTransporters(data5);
+      );
     } catch (error) {
-      console.error("Error fetching data:", error)
-      throw error
+      console.error("Error fetching data:", error);
+      throw error;
     }
-  }
+  };
 
   //load Data
   useEffect(() => {
-    fetchDataAndSetState()
-  }, [])
+    fetchDataAndSetState();
+  }, []);
+  useEffect(() => {
+    setDataCustomers(
+      dataCustomers.sort((a, b) => a.CustomerID.localeCompare(b.CustomerID))
+    );
+    setDataProducts(
+      dataProducts.sort((a, b) => a.ProductID.localeCompare(b.ProductID))
+    );
+    setDataWeighttypes(
+      dataWeighttypes.sort((a, b) =>
+        a.WeightTypeID.localeCompare(b.WeightTypeID)
+      )
+    );
+    setDataDrivers(
+      dataDrivers.sort((a, b) => a.DriverID.localeCompare(b.DriverID))
+    );
+    setDataTransporters(
+      dataTransporters.sort((a, b) =>
+        a.TransporterID.localeCompare(b.TransporterID)
+      )
+    );
+  }, [
+    dataCustomers,
+    dataProducts,
+    dataWeighttypes,
+    dataDrivers,
+    dataTransporters,
+  ]);
 
   //filterKey คือตัวเลข
   const handleCheckbox = (i) => {
     setFilters2((prevFilters2) => {
       //console.log("i: ", i);
-      const updatedFilters = [...prevFilters2]
+      const updatedFilters = [...prevFilters2];
       //console.log("updatedFilters: ", updatedFilters);
       updatedFilters[i] = {
         ...updatedFilters[i],
         Filter: !updatedFilters[i].Filter,
-      }
-      return updatedFilters
-    })
-  }
+      };
+      return updatedFilters;
+    });
+  };
 
   const handleText = (index, fromorto, newValue) => {
-    console.log("fromorto: ", fromorto, newValue)
+    console.log("fromorto: ", fromorto, newValue);
     if (fromorto === "From") {
       setFilters2((prevFilters2) => {
-        const updatedFilters = [...prevFilters2]
-        console.log("updatedFilters: ", updatedFilters)
+        const updatedFilters = [...prevFilters2];
+        console.log("updatedFilters: ", updatedFilters);
         updatedFilters[index] = {
           ...updatedFilters[index],
           From: newValue,
           //fromorto: !updatedFilters[index].fromorto,
-        }
-        return updatedFilters
-      })
+        };
+        return updatedFilters;
+      });
     } else if (fromorto === "To") {
       setFilters2((prevFilters2) => {
-        const updatedFilters = [...prevFilters2]
-        console.log("updatedFilters: ", updatedFilters)
+        const updatedFilters = [...prevFilters2];
+        console.log("updatedFilters: ", updatedFilters);
         updatedFilters[index] = {
           ...updatedFilters[index],
           To: newValue,
           //fromorto: !updatedFilters[index].fromorto,
-        }
-        return updatedFilters
-      })
+        };
+        return updatedFilters;
+      });
     }
-  }
+  };
 
   //datas.map((datas) => console.log(datas.WeightTypeID, datas.WeightTypeName));
 
@@ -268,7 +289,7 @@ function AppSearch({ onSearchFiltersChange }) {
               />
             )}
           </>
-        )
+        );
       case "calendar":
         return (
           <>
@@ -299,7 +320,7 @@ function AppSearch({ onSearchFiltersChange }) {
               />
             )}
           </>
-        )
+        );
       case "dropdown":
         return (
           <>
@@ -384,13 +405,13 @@ function AppSearch({ onSearchFiltersChange }) {
               />
             )}
           </>
-        )
+        );
       case "Singledropdown":
         return (
-          <>
+          <div className="w-[100%]">
             {fromorto === "From" && (
               <Dropdown
-                className="w-[100%] ml-[61px]"
+                className="min-w-[7rem] max-w-10rem sm:md:ml-[61px]"
                 value={filters2[index].Filter}
                 onChange={(e) => handleCheckbox(index, fromorto, e.value)}
                 options={[
@@ -404,28 +425,28 @@ function AppSearch({ onSearchFiltersChange }) {
                 showClear
               />
             )}
-          </>
-        )
+          </div>
+        );
       default:
-        return null
+        return null;
     }
-  }
+  };
 
-  const [activeIndex, setActiveIndex] = useState()
+  const [activeIndex, setActiveIndex] = useState();
 
   const onClickClose = () => {
     if (activeIndex.length === 0) {
       // If no tabs are open, open all tabs
-      setActiveIndex([0, 1, 2])
+      setActiveIndex([0, 1, 2]);
     } else {
       // If any tabs are open, close all tabs
-      setActiveIndex([])
+      setActiveIndex([]);
     }
-  }
+  };
 
   const handleSearch = () => {
-    onSearchFiltersChange(filters2)
-  }
+    onSearchFiltersChange(filters2);
+  };
   return (
     <div>
       <Accordion
@@ -448,7 +469,7 @@ function AppSearch({ onSearchFiltersChange }) {
                     {e.Typeinput === "Singledropdown" ? (
                       <label
                         onClick={() => handleCheckbox(i)}
-                        className="ml-[37px] self-center min-w-[8rem] cursor-pointer"
+                        className="sm:md:ml-[37px] self-center min-w-[8rem] cursor-pointer"
                       >
                         {e.Title}
                       </label>
@@ -520,7 +541,7 @@ function AppSearch({ onSearchFiltersChange }) {
         </AccordionTab>
       </Accordion>
     </div>
-  )
+  );
 }
 
-export default AppSearch
+export default AppSearch;

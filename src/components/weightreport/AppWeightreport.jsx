@@ -1,9 +1,10 @@
-import React, { useState } from "react"
-import AppNavber from "../navbar/AppNavber"
-import AppFetch from "../fetch/AppFetch"
+import React, { useEffect, useState } from "react";
+import AppNavber from "../navbar/AppNavber";
+import AppFetch from "../fetch/AppFetch";
+import AppTimer from "../AppTimer";
 
 function AppWeightreport() {
-  const [dataID, setDataID] = useState("")
+  const [dataID, setDataID] = useState("");
   const [bodySearch, setBodySearch] = useState([
     {
       Title: "เครื่องชั่งขาเข้า",
@@ -115,9 +116,9 @@ function AppWeightreport() {
       From: "",
       To: "",
     },
-  ])
+  ]);
 
-  console.log("bodySearch: ", bodySearch[0].Filter)
+  console.log("bodySearch: ", bodySearch[0].Filter);
 
   const fetchDataBody2 = () => {
     const result = bodySearch.map((e, i) => {
@@ -173,13 +174,13 @@ function AppWeightreport() {
           FlagCancelFilter: e.Filter,
           FlagPaymentFilter: e.Filter,
         }),
-      }
-    })
+      };
+    });
 
-    return result
-  }
+    return result;
+  };
 
-  console.log("bodySearch: ", bodySearch)
+  console.log("bodySearch: ", bodySearch);
   const fetchDataBody = {
     method: "POST",
     body: JSON.stringify({
@@ -222,7 +223,7 @@ function AppWeightreport() {
       //FlagCancelFilter: bodySearch[12].Filter ? "Y" : "N",
       //FlagStatusFilter: bodySearch[13].Filter ? "Y" : "N",
     }),
-  }
+  };
 
   //console.log("bodySearch[12].Filter: ", bodySearch[12].Filter)
   //console.log("bodySearch[12].Filter: ", bodySearch[13].Filter)
@@ -235,18 +236,18 @@ function AppWeightreport() {
       WeightTimeInFrom: "",
       WeightTimeInTo: "",
     }),
-  }
+  };
 
   const delDataBody = {
     method: "POST",
     body: JSON.stringify({
       DataID: dataID.DataID,
     }),
-  }
+  };
 
   const upDatedataID = (selectedlist) => {
-    setDataID(selectedlist)
-  }
+    setDataID(selectedlist);
+  };
 
   const columns = [
     {
@@ -313,11 +314,17 @@ function AppWeightreport() {
       field: "WeightNet",
       header: "WeightNet",
     },
-  ]
+  ];
 
   const handleSearchFiltersChange = (filters) => {
-    setBodySearch(filters)
-  }
+    setBodySearch(filters);
+  };
+
+  const timeRemaining = AppTimer("/main");
+  useEffect(() => {
+    // You can use the timeRemaining if needed
+    console.log("Time Remaining:", timeRemaining);
+  }, [timeRemaining]);
   return (
     <div>
       <AppNavber />
@@ -337,7 +344,7 @@ function AppWeightreport() {
         onSearchFiltersChange={handleSearchFiltersChange}
       />
     </div>
-  )
+  );
 }
 
-export default AppWeightreport
+export default AppWeightreport;

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AppNavber from "../navbar/AppNavber";
 import AppFetch from "../fetch/AppFetch";
+import AppTimer from "../AppTimer";
 
 function AppWeight() {
   const [dataID, setDataID] = useState("");
@@ -89,6 +90,11 @@ function AppWeight() {
       header: "WeightNet",
     },
   ];
+  const timeRemaining = AppTimer("/main");
+  useEffect(() => {
+    // You can use the timeRemaining if needed
+    console.log("Time Remaining:", timeRemaining);
+  }, [timeRemaining]);
   return (
     <div>
       <AppNavber />

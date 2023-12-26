@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "primereact/menu";
 import { Button } from "primereact/button";
 
-function AppNavber() {
+function AppNavber({ title }) {
   const navigate = useNavigate();
   const menuData = useRef(null);
   const menuReport = useRef(null);
@@ -96,55 +96,59 @@ function AppNavber() {
     },
   ];
   return (
-    <div className="flex flex-wrap gap-2 justify-center p-2 bg-cyan-700 text-gray-200 text-lg">
-      <div className="flex flex-wrap  self-start gap-2">
-        <Button
-          label="Main"
-          icon="pi pi-home"
-          className="p-2 w-24 h-10"
-          onClick={() => navigate("/")}
-          aria-controls="popup_menu_left"
-          aria-haspopup
-        />
-        <Menu model={datamenuItems} popup ref={menuData} id="popup_menu_left" />
-        <Button
-          label="Data"
-          icon="pi pi-server"
-          className="p-2 w-24 h-10"
-          onClick={(event) => menuData.current.toggle(event)}
-          aria-controls="popup_menu_left"
-          aria-haspopup
-        />
-        <Menu
-          model={reportmenuItems}
-          popup
-          ref={menuReport}
-          id="popup_menu_left"
-        />
-        <Button
-          label="Report"
-          icon="pi pi-tablet"
-          className="p-2 w-24 h-10"
-          onClick={(event) => menuReport.current.toggle(event)}
-          aria-controls="popup_menu_left"
-          aria-haspopup
-        />
-        <Button
-          label="Logout"
-          icon="pi pi-home"
-          className="p-2 w-24 h-10"
-          onClick={() => navigate("/login")}
-          aria-controls="popup_menu_left"
-          aria-haspopup
-        />
-      </div>
-      {/* <Link
-        className="border rounded-lg bg-cyan-700 hover:bg-cyan-800 p-1"
-        to="/"
-      >
-        Main
-      </Link> */}
-    </div>
+    <>
+      {title !== "login" && (
+        <div className="flex flex-wrap gap-2 justify-center p-2 bg-cyan-700 text-gray-200 text-lg">
+          <div className="flex flex-wrap  self-start gap-2">
+            <Button
+              label="Main"
+              icon="pi pi-home"
+              className="p-2 w-24 h-10"
+              onClick={() => navigate("/")}
+              aria-controls="popup_menu_left"
+              aria-haspopup
+            />
+            <Menu
+              model={datamenuItems}
+              popup
+              ref={menuData}
+              id="popup_menu_left"
+            />
+            <Button
+              label="Data"
+              icon="pi pi-server"
+              className="p-2 w-24 h-10"
+              onClick={(event) => menuData.current.toggle(event)}
+              aria-controls="popup_menu_left"
+              aria-haspopup
+            />
+            <Menu
+              model={reportmenuItems}
+              popup
+              ref={menuReport}
+              id="popup_menu_left"
+            />
+            <Button
+              label="Report"
+              icon="pi pi-tablet"
+              className="p-2 w-24 h-10"
+              //onClick={(event) => menuReport.current.toggle(event)}
+              onClick={() => navigate("/WeightReport")}
+              aria-controls="popup_menu_left"
+              aria-haspopup
+            />
+            <Button
+              label="Logout"
+              icon="pi pi-home"
+              className="p-2 w-24 h-10"
+              onClick={() => navigate("/")}
+              aria-controls="popup_menu_left"
+              aria-haspopup
+            />
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
