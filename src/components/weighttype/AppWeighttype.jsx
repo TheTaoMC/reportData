@@ -5,7 +5,6 @@ import AppFetch from "../fetch/AppFetch";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
-import AppTimer from "../AppTimer";
 
 function AppWeighttype() {
   const [data, setData] = useState("");
@@ -13,6 +12,7 @@ function AppWeighttype() {
   const [weightTypeID, setWeightTypeID] = useState("");
   const [weightTypeName, setWeightTypeName] = useState("");
   const [flagCancel, setFlagCancel] = useState(false);
+  console.log(dataID);
 
   const fetchDataBody = {
     method: "GET",
@@ -27,7 +27,7 @@ function AppWeighttype() {
   const addDataBody = {
     method: "POST",
     body: JSON.stringify({
-      DataID: uuidv4(),
+      DataID: weightTypeID === "" ? "" : uuidv4(),
       WeightTypeID: weightTypeID,
       WeightTypeName: weightTypeName,
       FlagCancel: flagCancel ? "Y" : "N",
@@ -116,11 +116,7 @@ function AppWeighttype() {
       </div>
     </div>
   );
-  const timeRemaining = AppTimer("/main");
-  useEffect(() => {
-    // You can use the timeRemaining if needed
-    console.log("Time Remaining:", timeRemaining);
-  }, [timeRemaining]);
+
   return (
     <div>
       <AppNavber />
@@ -141,7 +137,7 @@ function AppWeighttype() {
         }
         fetchDataBody={fetchDataBody}
         delDataBody={delDataBody}
-        addDataBody={addDataBody}
+        addDataBody={weightTypeID === "" ? null : addDataBody}
         editDataBody={editDataBody}
         columns={columns}
         minWidth={"10rem"}
@@ -149,6 +145,7 @@ function AppWeighttype() {
         child={addedit}
         resetState={resetState}
         setState={setState}
+        dataID={dataID}
       />
     </div>
   );

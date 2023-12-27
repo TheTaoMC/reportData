@@ -1,6 +1,8 @@
 //addData
 const addData = async (addDataURL, addDataBody, fetchdata) => {
   console.log("addData: ", addDataURL, addDataBody);
+  console.log("addData:addDataBody: ", addDataBody.body);
+
   try {
     //ตรวจสอบ
 

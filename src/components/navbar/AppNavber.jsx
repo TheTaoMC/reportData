@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu } from "primereact/menu";
 import { Button } from "primereact/button";
+import Cookies from "js-cookie";
 
 function AppNavber({ title }) {
   const navigate = useNavigate();
@@ -104,7 +105,7 @@ function AppNavber({ title }) {
               label="Main"
               icon="pi pi-home"
               className="p-2 w-24 h-10"
-              onClick={() => navigate("/")}
+              onClick={() => navigate("/main")}
               aria-controls="popup_menu_left"
               aria-haspopup
             />
@@ -141,7 +142,10 @@ function AppNavber({ title }) {
               label="Logout"
               icon="pi pi-home"
               className="p-2 w-24 h-10"
-              onClick={() => navigate("/")}
+              onClick={() => {
+                Cookies.remove("user");
+                navigate("/");
+              }}
               aria-controls="popup_menu_left"
               aria-haspopup
             />

@@ -5,7 +5,7 @@ import AppFetch from "../fetch/AppFetch";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
-import AppTimer from "../AppTimer";
+
 
 function AppTransporter() {
   const [data, setData] = useState("");
@@ -150,11 +150,7 @@ function AppTransporter() {
       </div>
     </div>
   );
-  const timeRemaining = AppTimer("/main");
-  useEffect(() => {
-    // You can use the timeRemaining if needed
-    console.log("Time Remaining:", timeRemaining);
-  }, [timeRemaining]);
+
   return (
     <div>
       <AppNavber />
@@ -175,7 +171,7 @@ function AppTransporter() {
         }
         fetchDataBody={fetchDataBody}
         delDataBody={delDataBody}
-        addDataBody={addDataBody}
+        addDataBody={transporterID === "" ? null : addDataBody}
         editDataBody={editDataBody}
         columns={columns}
         minWidth={"10rem"}

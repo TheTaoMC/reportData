@@ -1,18 +1,26 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import AppNavber from "../navbar/AppNavber";
 import { Button } from "primereact/button";
+import { Password } from "primereact/password";
 import { InputText } from "primereact/inputtext";
 import { useNavigate } from "react-router-dom";
 import { Toast } from "primereact/toast";
+import Cookies from "js-cookie";
+import { DataContext } from "../../App";
 
 function AppLogin() {
+  const { auth, setAuth } = useContext(DataContext);
   const navigate = useNavigate();
   const toast = useRef(null);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("admin");
+  const [password, setPassword] = useState("1234");
 
   const handleLogin = () => {
     if (username === "admin" && password === "1234") {
+      const authenticatedUser = { username: username };
+      Cookies.set("username", JSON.stringify(authenticatedUser), {
+        expires: 1 / 1000,
+      });
       return navigate("/main");
     } else {
       //alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
@@ -46,22 +54,35 @@ function AppLogin() {
             <InputText
               id="username"
               aria-describedby="username-help"
+              autoFocus
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
           </div>
           <div className="p-2 flex flex-col">
-            <label htmlFor="username">รหัสผ่าน</label>
-            <InputText
-              onKeyDown={handleKeyPress}
-              id="username"
-              aria-describedby="username-help"
+            <label htmlFor="username">password</label>
+            <Password
+              id="password"
+              aria-describedby="password-help"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onKeyDown={handleKeyPress}
+              feedback={false}
+              //tabIndex={1}
+              toggleMask
+              pt={{
+                input: { className: "w-full" },
+                showIcon: { className: "flex" },
+                hideIcon: { className: "flex" },
+              }}
             />
           </div>
           <div className="p-2">
-            <Button className="w-full" label="เข้าสู่ระบบ" onClick={handleLogin} />
+            <Button
+              className="w-full"
+              label="เข้าสู่ระบบ"
+              onClick={handleLogin}
+            />
           </div>
         </div>
       </div>

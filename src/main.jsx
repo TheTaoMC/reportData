@@ -5,22 +5,23 @@ import "./index.css";
 
 import { PrimeReactProvider } from "primereact/api";
 //import "primereact/resources/themes/tailwind-light/theme.css"
-import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
-//import "primeflex/primeflex.css";
+import "primereact/resources/themes/bootstrap4-light-blue/theme.css"; // theme
+//import "primeflex/primeflex.css"; // css utility
 import "primeicons/primeicons.css";
-import "primereact/resources/primereact.css";
+import "primereact/resources/primereact.css"; // core css
 
+import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import AppWeight from "./components/weight/AppWeight.jsx";
 import TableData2 from "./components/TableDatas2.jsx";
 import AppProduct from "./components/product/AppProduct";
 import AppCustomer from "./components/customer/AppCustomer.jsx";
-
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import AppWeighttype from "./components/weighttype/AppWeighttype.jsx";
 import AppDriver from "./components/driver/AppDriver.jsx";
 import AppTransporter from "./components/transporter/AppTransporter.jsx";
 import AppLogin from "./components/login/AppLogin.jsx";
 import AppWeightreport from "./components/weightreport/AppWeightreport.jsx";
+
+
 
 const router = createBrowserRouter([
   {
@@ -73,7 +74,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <React.StrictMode>
       <PrimeReactProvider>
-        <RouterProvider router={router} />
+        <App />
       </PrimeReactProvider>
     </React.StrictMode>
   </>

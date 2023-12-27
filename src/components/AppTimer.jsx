@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AppTimer = (navigateTitle) => {
-  const [time, setTime] = useState(5 * 60); // 25 minutes in seconds
+  const [time, setTime] = useState(10); // 25 minutes in seconds
   const navigate = useNavigate();
 
   useEffect(() => {

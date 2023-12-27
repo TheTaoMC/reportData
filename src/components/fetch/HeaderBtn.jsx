@@ -34,6 +34,7 @@ const header = (
   setState,
   onSearchFiltersChange
 ) => {
+  //console.log("dataID: ", dataID);
   //console.log("filters2Out: ", onSearchFiltersChange)
   //console.log("selectedlist1?? ", selectedlist)
   //console.log("resetState:header: ", resetState)
@@ -44,6 +45,15 @@ const header = (
 
   //บันทึกข้อมูล
   const add = async () => {
+    if (addDataBody === null) {
+      toast.current.show({
+        severity: "warn",
+        summary: "แจ้งเตือน",
+        detail: "ข้อมูลไม่ถูกต้อง",
+        life: 3000,
+      });
+      return;
+    }
     try {
       const data = await addData(addDataURL, addDataBody, fetchdata);
       //console.log("typeof fetchdata : ", typeof fetchdata);
