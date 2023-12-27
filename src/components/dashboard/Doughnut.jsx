@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Chart } from "primereact/chart";
+import React, { useState, useEffect } from "react"
+import { Chart } from "primereact/chart"
 
 function Doughnut() {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
+  const [chartData, setChartData] = useState({})
+  const [chartOptions, setChartOptions] = useState({})
 
   useEffect(() => {
-    const documentStyle = getComputedStyle(document.documentElement);
+    const documentStyle = getComputedStyle(document.documentElement)
+
     const data = {
-      labels: ["A", "B", "C"],
+      labels: ["ไข่ไก่", "เนื้อหมู", "เนื้อวัว"],
       datasets: [
         {
           data: [300, 50, 100],
@@ -24,14 +25,15 @@ function Doughnut() {
           ],
         },
       ],
-    };
-    const options = {
-      cutout: "60%",
-    };
+    }
 
-    setChartData(data);
-    setChartOptions(options);
-  }, []);
+    const options = {
+      cutout: "50%",
+    }
+
+    setChartData(data)
+    setChartOptions(options)
+  }, [])
 
   return (
     <div className="card flex justify-content-center">
@@ -39,9 +41,9 @@ function Doughnut() {
         type="doughnut"
         data={chartData}
         options={chartOptions}
-        className="w-[30%] md:w-30rem"
+        className="w-[50%] md:w-30rem"
       />
     </div>
-  );
+  )
 }
-export default Doughnut;
+export default Doughnut

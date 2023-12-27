@@ -1,27 +1,27 @@
-import React, { useRef, useState, useContext } from "react";
-import AppNavber from "../navbar/AppNavber";
-import { Button } from "primereact/button";
-import { Password } from "primereact/password";
-import { InputText } from "primereact/inputtext";
-import { useNavigate } from "react-router-dom";
-import { Toast } from "primereact/toast";
-import Cookies from "js-cookie";
-import { DataContext } from "../../App";
+import React, { useRef, useState, useContext } from "react"
+import AppNavber from "../navbar/AppNavber"
+import { Button } from "primereact/button"
+import { Password } from "primereact/password"
+import { InputText } from "primereact/inputtext"
+import { useNavigate } from "react-router-dom"
+import { Toast } from "primereact/toast"
+import Cookies from "js-cookie"
+import { DataContext } from "../../App"
 
 function AppLogin() {
-  const { auth, setAuth } = useContext(DataContext);
-  const navigate = useNavigate();
-  const toast = useRef(null);
-  const [username, setUsername] = useState("admin");
-  const [password, setPassword] = useState("1234");
+  const { auth, setAuth } = useContext(DataContext)
+  const navigate = useNavigate()
+  const toast = useRef(null)
+  const [username, setUsername] = useState("admin")
+  const [password, setPassword] = useState("1234")
 
   const handleLogin = () => {
     if (username === "admin" && password === "1234") {
-      const authenticatedUser = { username: username };
+      const authenticatedUser = { username: username }
       Cookies.set("username", JSON.stringify(authenticatedUser), {
-        expires: 1 / 1000,
-      });
-      return navigate("/main");
+        expires: 100 / 1000,
+      })
+      return navigate("/main")
     } else {
       //alert("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง");
       toast.current.show({
@@ -29,17 +29,17 @@ function AppLogin() {
         summary: "Error",
         detail: "ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง",
         life: 3000,
-      });
+      })
     }
-  };
+  }
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
-      handleLogin();
+      handleLogin()
       // ทำสิ่งที่คุณต้องการทำเมื่อกดปุ่ม Enter
-      console.log("Enter key pressed");
+      console.log("Enter key pressed")
     }
-  };
+  }
   return (
     <div>
       <Toast ref={toast} />
@@ -87,7 +87,7 @@ function AppLogin() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default AppLogin;
+export default AppLogin

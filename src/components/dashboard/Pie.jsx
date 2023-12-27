@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { Chart } from "primereact/chart";
+import React, { useState, useEffect } from "react"
+import { Chart } from "primereact/chart"
 
 function Pie() {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
+  const [chartData, setChartData] = useState({})
+  const [chartOptions, setChartOptions] = useState({})
 
   useEffect(() => {
-    const documentStyle = getComputedStyle(document.documentElement);
+    const documentStyle = getComputedStyle(document.documentElement)
     const data = {
       labels: ["A", "B", "C"],
       datasets: [
@@ -24,7 +24,7 @@ function Pie() {
           ],
         },
       ],
-    };
+    }
     const options = {
       plugins: {
         legend: {
@@ -33,11 +33,11 @@ function Pie() {
           },
         },
       },
-    };
+    }
 
-    setChartData(data);
-    setChartOptions(options);
-  }, []);
+    setChartData(data)
+    setChartOptions(options)
+  }, [])
 
   return (
     <div className="card flex justify-content-center">
@@ -45,9 +45,9 @@ function Pie() {
         type="pie"
         data={chartData}
         options={chartOptions}
-        className="w-[30%] md:w-30rem"
+        className="w-[50%] md:w-30rem"
       />
     </div>
-  );
+  )
 }
-export default Pie;
+export default Pie

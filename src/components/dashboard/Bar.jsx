@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Chart } from "primereact/chart";
+import React, { useState, useEffect } from "react"
+import { Chart } from "primereact/chart"
 
 function Bar() {
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
+  const [chartData, setChartData] = useState({})
+  const [chartOptions, setChartOptions] = useState({})
 
   useEffect(() => {
     const data = {
@@ -27,24 +27,29 @@ function Bar() {
           borderWidth: 1,
         },
       ],
-    };
+    }
     const options = {
       scales: {
         y: {
           beginAtZero: true,
         },
       },
-    };
+    }
 
-    setChartData(data);
-    setChartOptions(options);
-  }, []);
+    setChartData(data)
+    setChartOptions(options)
+  }, [])
 
   return (
     <div className="card">
-      <Chart type="bar" data={chartData} options={chartOptions} className="w-[30%] md:w-30rem"/>
+      <Chart
+        type="bar"
+        data={chartData}
+        options={chartOptions}
+        className="w-[50%] md:w-30rem"
+      />
     </div>
-  );
+  )
 }
 
-export default Bar;
+export default Bar
