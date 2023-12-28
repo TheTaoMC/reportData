@@ -47,7 +47,7 @@ function AppFetch({
   //load Data
   useEffect(() => {
     fetchdata();
-    console.log("load Data");
+    //console.log("load Data");
   }, [fetchDataBody]);
 
   const funheader = () => {

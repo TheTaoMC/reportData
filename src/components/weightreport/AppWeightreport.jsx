@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import AppNavber from "../navbar/AppNavber";
 import AppFetch from "../fetch/AppFetch";
 
-
 function AppWeightreport() {
   const [dataID, setDataID] = useState("");
   const [bodySearch, setBodySearch] = useState([
@@ -24,15 +23,15 @@ function AppWeightreport() {
       Title: "เวลาชั่งเข้า",
       Filter: false,
       Typeinput: "calendar",
-      From: "",
-      To: "",
+      From: new Date(),
+      To: new Date(),
     },
     {
       Title: "เวลาชั่งออก",
       Filter: false,
       Typeinput: "calendar",
-      From: "",
-      To: "",
+      From: new Date(),
+      To: new Date(),
     },
     {
       Title: "เลขที่เข้า",
@@ -118,7 +117,7 @@ function AppWeightreport() {
     },
   ]);
 
-  console.log("bodySearch: ", bodySearch[0].Filter);
+  //console.log("bodySearch: ", bodySearch[0].Filter);
 
   const fetchDataBody2 = () => {
     const result = bodySearch.map((e, i) => {
@@ -319,7 +318,6 @@ function AppWeightreport() {
   const handleSearchFiltersChange = (filters) => {
     setBodySearch(filters);
   };
-
 
   return (
     <div>
