@@ -7,7 +7,6 @@ import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Checkbox } from "primereact/checkbox";
 
-
 function AppCustomer() {
   const [data, setData] = useState("");
   const [dataID, setDataID] = useState("");
@@ -19,6 +18,10 @@ function AppCustomer() {
 
   const fetchDataBody = {
     method: "GET",
+    headers: {
+      "Api-Key": "857F7237C03246028748D51C97D4BADE",
+      "Content-Type": "application/json",
+    },
   };
   const delDataBody = {
     method: "POST",
