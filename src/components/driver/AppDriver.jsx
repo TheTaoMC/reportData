@@ -5,6 +5,8 @@ import AppFetch from "../fetch/AppFetch";
 
 import { InputText } from "primereact/inputtext";
 import { Checkbox } from "primereact/checkbox";
+import { useSetRecoilState } from "recoil";
+import { storeForm } from "../../recoilStore/Store";
 
 
 function AppDriver() {
@@ -150,7 +152,10 @@ function AppDriver() {
       </div>
     </div>
   );
-
+  const setForm = useSetRecoilState(storeForm);
+  useEffect(() => {
+    setForm(addedit);
+  }, []);
   return (
     <div>
       <AppNavber />

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AppNavber from "../navbar/AppNavber";
 import AppFetch from "../fetch/AppFetch";
-
+import { useSetRecoilState } from "recoil";
+import { storeForm } from "../../recoilStore/Store";
 
 function AppWeight() {
   const [dataID, setDataID] = useState("");
@@ -90,7 +91,10 @@ function AppWeight() {
       header: "WeightNet",
     },
   ];
-
+  const setForm = useSetRecoilState(storeForm);
+  useEffect(() => {
+    setForm([]);
+  }, []);
   return (
     <div>
       <AppNavber />

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -14,8 +14,6 @@ import AppTransporter from "./components/transporter/AppTransporter.jsx";
 import AppLogin from "./components/login/AppLogin.jsx";
 import AppWeightreport from "./components/weightreport/AppWeightreport.jsx";
 import AppMain from "./components/main/AppMain.jsx";
-
-export const DataContext = createContext();
 
 const router = createBrowserRouter([
   {
@@ -64,13 +62,10 @@ const router = createBrowserRouter([
   },
 ]);
 function App() {
-  const [auth, setAuth] = useState(null);
-  console.log("App: ", auth);
+  
   return (
     <>
-      <DataContext.Provider value={{ auth, setAuth }}>
-        <RouterProvider router={router} />
-      </DataContext.Provider>
+      <RouterProvider router={router} />
     </>
   );
 }

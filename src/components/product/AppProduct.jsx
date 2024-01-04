@@ -6,9 +6,12 @@ import AppFetch from "../fetch/AppFetch"
 import { InputText } from "primereact/inputtext"
 import { InputNumber } from "primereact/inputnumber"
 import { Checkbox } from "primereact/checkbox"
+import { storeForm } from "../../recoilStore/Store"
+import { useRecoilState, useSetRecoilState } from "recoil"
 
 
 function AppProduct() {
+  const setForm = useSetRecoilState(storeForm);
   const [data, setData] = useState("")
   const [dataID, setDataID] = useState("")
   const [productID, setProductID] = useState("")
@@ -144,6 +147,9 @@ function AppProduct() {
     </div>
   )
 
+  useEffect(() => {
+    setForm(addedit);
+  }, []);
   return (
     <div>
       <AppNavber />

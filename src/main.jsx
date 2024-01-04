@@ -10,6 +10,14 @@ import "primereact/resources/themes/bootstrap4-light-blue/theme.css"; // theme
 import "primeicons/primeicons.css";
 import "primereact/resources/primereact.css"; // core css
 
+import {
+  RecoilRoot,
+  atom,
+  selector,
+  useRecoilState,
+  useRecoilValue,
+} from "recoil";
+
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import AppWeight from "./components/weight/AppWeight.jsx";
 import TableData2 from "./components/TableDatas2.jsx";
@@ -21,9 +29,7 @@ import AppTransporter from "./components/transporter/AppTransporter.jsx";
 import AppLogin from "./components/login/AppLogin.jsx";
 import AppWeightreport from "./components/weightreport/AppWeightreport.jsx";
 
-
-
-const router = createBrowserRouter([
+/* const router = createBrowserRouter([
   {
     path: "/",
     element: <AppLogin />,
@@ -68,14 +74,16 @@ const router = createBrowserRouter([
     path: "login",
     element: <AppLogin />,
   },
-]);
+]); */
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <>
     <React.StrictMode>
-      <PrimeReactProvider>
-        <App />
-      </PrimeReactProvider>
+      <RecoilRoot>
+        <PrimeReactProvider>
+          <App />
+        </PrimeReactProvider>
+      </RecoilRoot>
     </React.StrictMode>
   </>
 );

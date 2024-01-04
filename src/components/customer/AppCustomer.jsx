@@ -6,6 +6,8 @@ import AppFetch from "../fetch/AppFetch";
 import { InputText } from "primereact/inputtext";
 import { InputNumber } from "primereact/inputnumber";
 import { Checkbox } from "primereact/checkbox";
+import { storeForm } from "../../recoilStore/Store";
+import { useRecoilState, useSetRecoilState } from "recoil";
 
 function AppCustomer() {
   const [data, setData] = useState("");
@@ -18,9 +20,13 @@ function AppCustomer() {
 
   const fetchDataBody = {
     method: "GET",
+    //mode: "cors",
     headers: {
-      "Api-Key": "857F7237C03246028748D51C97D4BADE",
-      "Content-Type": "application/json",
+      "Api-Key": "857F7237C03246028748D51C97D4BADE", // กำหนด API key ของคุณ
+      //ABC: "857F7237C03246028748D51C97D4BADE",
+      //X_api_key: "857F7237C03246028748D51C97D4BADE",
+      //Authorization: "Bearer 857F7237C03246028748D51C97D4BAD",
+      //'Origin': 'http://localhost:5173/',
     },
   };
   const delDataBody = {
@@ -155,6 +161,10 @@ function AppCustomer() {
     </div>
   );
 
+  const setForm = useSetRecoilState(storeForm);
+  useEffect(() => {
+    setForm(addedit);
+  }, []);
   return (
     <div>
       <AppNavber />

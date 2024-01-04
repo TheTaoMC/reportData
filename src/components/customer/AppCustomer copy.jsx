@@ -4,24 +4,23 @@ import AppNavber from "../navbar/AppNavber";
 import AppFetch from "../fetch/AppFetch";
 
 import { InputText } from "primereact/inputtext";
+import { InputNumber } from "primereact/inputnumber";
 import { Checkbox } from "primereact/checkbox";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import { storeForm, storeSelectedlist } from "../../recoilStore/Store";
 
-function AppWeighttype() {
-  const setForm = useSetRecoilState(storeForm);
-  const Selectedlist = useRecoilValue(storeSelectedlist);
-  console.log("Selectedlist?:", Selectedlist);
-  
+function AppCustomer() {
   const [data, setData] = useState("");
   const [dataID, setDataID] = useState("");
-  const [weightTypeID, setWeightTypeID] = useState("");
-  const [weightTypeName, setWeightTypeName] = useState("");
+  const [customerID, setCustomerID] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [address1, setAddress1] = useState("");
+  const [address2, setAddress2] = useState("");
   const [flagCancel, setFlagCancel] = useState(false);
-  //console.log(data);
 
   const fetchDataBody = {
     method: "GET",
+    headers: {
+      "Api-Key": "857F7237C03246028748D51C97D4BADE",
+    },
   };
   const delDataBody = {
     method: "POST",
@@ -33,9 +32,11 @@ function AppWeighttype() {
   const addDataBody = {
     method: "POST",
     body: JSON.stringify({
-      DataID: weightTypeID === "" ? "" : uuidv4(),
-      WeightTypeID: weightTypeID,
-      WeightTypeName: weightTypeName,
+      DataID: uuidv4(),
+      CustomerID: customerID,
+      CustomerName: customerName,
+      Address1: address1,
+      Address2: address2,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
   };
@@ -44,41 +45,53 @@ function AppWeighttype() {
     method: "POST",
     body: JSON.stringify({
       DataID: dataID,
-      WeightTypeID: weightTypeID,
-      WeightTypeName: weightTypeName,
+      CustomerID: customerID,
+      CustomerName: customerName,
+      Address1: address1,
+      Address2: address2,
       FlagCancel: flagCancel ? "Y" : "N",
     }),
   };
 
   const resetState = () => {
     setDataID("");
-    setWeightTypeID("");
-    setWeightTypeName("");
+    setCustomerID("");
+    setCustomerName("");
+    setAddress1("");
+    setAddress2("");
     setFlagCancel(false);
   };
 
   const setState = () => {
     setDataID(data.DataID);
-    setWeightTypeID(data.WeightTypeID);
-    setWeightTypeName(data.WeightTypeName);
+    setCustomerID(data.CustomerID);
+    setCustomerName(data.CustomerName);
+    setAddress1(data.Address1);
+    setAddress2(data.Address2);
     setFlagCancel(data.FlagCancel === "Y" ? true : false);
   };
 
   const upDatedataID = (selectedlist) => {
-    console.log("selectedlist:upDatedataID: ", selectedlist);
-
+    console.log("selectedlist: ", selectedlist);
     setData(selectedlist);
-    setForm(addedit);
   };
 
   const columns = [
     {
-      field: "WeightTypeID",
-      header: "WeightTypeID",
+      field: "CustomerID",
+      header: "CustomerID",
     },
     {
-      field: "WeightTypeName",
-      header: "WeightTypeName",
+      field: "CustomerName",
+      header: "CustomerName",
+    },
+    {
+      field: "Address1",
+      header: "Address1",
+    },
+    {
+      field: "Address2",
+      header: "Address2",
     },
     {
       field: "FlagCancel",
@@ -88,25 +101,42 @@ function AppWeighttype() {
 
   const addedit = (
     <div>
-      <div>WeightTypeID</div>
+      <div>CustomerID</div>
       <div>
         <InputText
           autoFocus
           className="w-[100%]"
-          value={weightTypeID}
+          value={customerID}
           onChange={(e) => {
-            setWeightTypeID(e.target.value);
+            setCustomerID(e.target.value);
           }}
         />
       </div>
-      <div>WeightTypeName</div>
+      <div>CustomerName</div>
       <div>
         <InputText
           className="w-[100%]"
-          value={weightTypeName}
-          onChange={(e) => setWeightTypeName(e.target.value)}
+          value={customerName}
+          onChange={(e) => setCustomerName(e.target.value)}
         />
       </div>
+      <div>Address1</div>
+      <div>
+        <InputText
+          className="w-[100%]"
+          value={address1}
+          onChange={(e) => setAddress1(e.target.value)}
+        />
+      </div>
+      <div>Address2</div>
+      <div>
+        <InputText
+          className="w-[100%]"
+          value={address2}
+          onChange={(e) => setAddress2(e.target.value)}
+        />
+      </div>
+
       <div>
         <div className="flex gap-2  justify-between">
           <div className="flex gap-2 items-center">
@@ -123,31 +153,28 @@ function AppWeighttype() {
       </div>
     </div>
   );
-  useEffect(() => {
-    setForm(addedit);
-    //console.log(data);
-  }, []);
+
   return (
     <div>
       <AppNavber />
       <AppFetch
-        sortField={"WeightTypeName"}
-        title={"ประเภทชั่ง"}
+        sortField={"CustomerName"}
+        title={"ลูกค้า"}
         fetchDataURL={
-          "https://theotesteng.000webhostapp.com/API/api/weighttype/read.php"
+          "https://theotesteng.000webhostapp.com/API/api/customer/read.php"
         }
         delDataURL={
-          "https://theotesteng.000webhostapp.com/API/api/weighttype/delete.php"
+          "https://theotesteng.000webhostapp.com/API/api/customer/delete.php"
         }
         addDataURL={
-          "https://theotesteng.000webhostapp.com/API/api/weighttype/create.php"
+          "https://theotesteng.000webhostapp.com/API/api/customer/create.php"
         }
         editDataURL={
-          "https://theotesteng.000webhostapp.com/API/api/weighttype/update.php"
+          "https://theotesteng.000webhostapp.com/API/api/customer/update.php"
         }
         fetchDataBody={fetchDataBody}
         delDataBody={delDataBody}
-        addDataBody={weightTypeID === "" ? null : addDataBody}
+        addDataBody={customerID === "" ? null : addDataBody}
         editDataBody={editDataBody}
         columns={columns}
         minWidth={"10rem"}
@@ -155,10 +182,9 @@ function AppWeighttype() {
         child={addedit}
         resetState={resetState}
         setState={setState}
-        dataID={dataID}
       />
     </div>
   );
 }
 
-export default AppWeighttype;
+export default AppCustomer;
